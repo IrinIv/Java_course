@@ -12,7 +12,7 @@ public class MyFirstJavaProgramm {
 
     System.out.println(distance(p1, p2));
   }
-  
+
 
   public static double distance(Point p1, Point p2) {
 
