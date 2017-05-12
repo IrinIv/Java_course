@@ -4,22 +4,23 @@ package ru.stqa.pft.sandbox;
  * Created by IrinaIv on 5/11/2017.
  */
 public class Point {
- public double x;
- public double y;
+ public double p1;
+ public double p2;
 
 
 
-public Point(double x, double y) {
-  this.x = x;
-  this.y = y;
+public Point(double p1, double p2) {
+  this.p1 = p1;
+  this.p2 = p2;
   }
 
-  public double dot1() {
-    return (this.y - this.x) * (this.y - this.x);
+  public double dot1()
+  {
+    return (this.p2 - this.p1) * (this.p2 - this.p1);
   }
 
   public double dot2() {
-    return (this.y - this.x) * (this.y - this.x);
+    return (this.p2 - this.p1) * (this.p2 - this.p1);
   }
 
 
@@ -37,6 +38,6 @@ public Point(double x, double y) {
 
   public static double distance(Point p1, Point p2) {
 
-    return Math.sqrt(((p1.y - p1.x) * (p1.y - p1.x))+((p2.y - p2.x) * (p2.y - p2.x)));
+    return Math.sqrt(((p1.p2 - p1.p1) * (p1.p2 - p1.p1))+((p2.p2 - p2.p1) * (p2.p2 - p2.p1)));
   }
 }
