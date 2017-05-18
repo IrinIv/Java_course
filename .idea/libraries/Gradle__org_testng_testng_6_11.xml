@@ -1,5 +1,8 @@
 <component name="libraryTable">
   <library name="Gradle: org.testng:testng:6.11">
+    <ANNOTATIONS>
+      <root url="file://$PROJECT_DIR$/addressbook-web-test" />
+    </ANNOTATIONS>
     <CLASSES>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.testng/testng/6.11/1fdd5e22f50b14f6d846163456e8c9a7657626fb/testng-6.11.jar!/" />
     </CLASSES>
