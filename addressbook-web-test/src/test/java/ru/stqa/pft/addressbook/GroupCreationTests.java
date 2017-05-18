@@ -20,7 +20,7 @@ import static org.openqa.selenium.OutputType.*;
 public class GroupCreationTests {
     FirefoxDriver wd;
     
-    @BeforeClass
+    @BeforeMethod
     public void setUp() throws Exception {
         //wd = new FirefoxDriver();
         wd = new FirefoxDriver(new FirefoxOptions().setLegacy(true));
@@ -28,7 +28,7 @@ public class GroupCreationTests {
     }
     
     @Test
-    public void GroupCreationTests () {
+    public void testGroupCreation () {
         wd.get("http://localhost/addressbook/");
         wd.findElement(By.name("user")).click();
         wd.findElement(By.name("user")).clear();
