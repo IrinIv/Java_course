@@ -27,4 +27,29 @@ public class ContactHelper extends BaseHelper {
     type(By.name("mobile"),contactData.getMobilephone());
     type(By.name("email"),contactData.getEmail());
   }
+
+  public void selectContact() {
+    click(By.name("selected[]"));
+  }
+
+  public void deleteSelectedContacts() {
+    click(By.xpath("//div[@id='content']/form[2]/div[2]/input"));
+  }
+
+  public void closeAlert() {
+    wd.switchTo().alert().accept();
+  }
+
+  public void returnHomePage() {
+    click(By.linkText("home"));
+  }
+
+  public void editContact() {
+    click(By.xpath("//table[@id='maintable']/tbody/tr[2]/td[8]/a/img"));
+  }
+
+  public void updateContact() {
+
+    click(By.xpath("//div[@id='content']/form[1]/input[22]"));
+  }
 }
