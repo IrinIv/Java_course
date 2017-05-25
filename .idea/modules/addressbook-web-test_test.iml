@@ -12,6 +12,7 @@
     <orderEntry type="module" module-name="addressbook-web-test_main" />
     <orderEntry type="library" name="Gradle: org.testng:testng:6.11" level="project" />
     <orderEntry type="library" name="Gradle: org.seleniumhq.selenium:selenium-java:3.4.0" level="project" />
+    <orderEntry type="library" name="Gradle: org.seleniumhq.selenium:htmlunit-driver:2.26" level="project" />
     <orderEntry type="library" name="Gradle: com.beust:jcommander:1.64" level="project" />
     <orderEntry type="library" name="Gradle: org.yaml:snakeyaml:1.17" level="project" />
     <orderEntry type="library" name="Gradle: org.seleniumhq.selenium:selenium-api:3.4.0" level="project" />
@@ -44,7 +45,6 @@
     <orderEntry type="library" name="Gradle: net.java.dev.jna:jna-platform:4.1.0" level="project" />
     <orderEntry type="library" name="Gradle: junit:junit:4.12" level="project" />
     <orderEntry type="library" name="Gradle: com.codeborne:phantomjsdriver:1.4.0" level="project" />
-    <orderEntry type="library" name="Gradle: org.seleniumhq.selenium:htmlunit-driver:2.26" level="project" />
     <orderEntry type="library" name="Gradle: javax.servlet:javax.servlet-api:3.1.0" level="project" />
     <orderEntry type="library" name="Gradle: org.eclipse.jetty.websocket:websocket-api:9.4.3.v20170317" level="project" />
     <orderEntry type="library" name="Gradle: org.eclipse.jetty.websocket:websocket-client:9.4.3.v20170317" level="project" />
