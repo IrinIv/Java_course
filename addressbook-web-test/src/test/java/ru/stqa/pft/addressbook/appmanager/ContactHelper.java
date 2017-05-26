@@ -37,6 +37,10 @@ public class ContactHelper extends BaseHelper {
     }
   }
 
+  public void returnToContactPage() {
+
+    wd.findElement(By.xpath("//div/div[4]/div/i/a[2]")).click();
+  }
 
   public void selectContact() {
     click(By.name("selected[]"));
@@ -62,5 +66,17 @@ public class ContactHelper extends BaseHelper {
   public void updateContact() {
 
     click(By.xpath("//div[@id='content']/form[1]/input[22]"));
+  }
+
+  public void createContact(ContactData contact, boolean b) {
+    fillContactForm(new ContactData("Irina", "Iva", "1234567890", "1234567890", "email@gmail.com", "test1"), true);
+    submitContact();
+    returnToContactPage();
+
+
+  }
+
+  public boolean isThereAreContact() {
+    return isElementPresent(By.name("selected[]"));
   }
 }

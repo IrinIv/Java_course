@@ -51,9 +51,7 @@ public class ApplicationManager {
   }
 
 
-  public void returnToContactPage() {
-    wd.findElement(By.xpath("//div/div[4]/div/i/a[2]")).click();
-  }
+
 
   public void stop() {
     wd.quit();
