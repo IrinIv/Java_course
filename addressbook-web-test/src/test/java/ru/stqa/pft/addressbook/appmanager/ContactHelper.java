@@ -56,11 +56,14 @@ public class ContactHelper extends BaseHelper {
   }
 
   public void returnHomePage() {
-    click(By.linkText("home"));
-  }
+    if (isElementPresent(By.id("maintable"))) {
+      return;}
+      click(By.linkText("home"));
+    }
+
 
   public void editContact() {
-    click(By.xpath("//table[@id='maintable']/tbody/tr[2]/td[8]/a/img"));
+    click(By.cssSelector("img[alt='Edit']"));
   }
 
   public void updateContact() {
