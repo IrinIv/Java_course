@@ -82,4 +82,14 @@ public class ContactHelper extends BaseHelper {
   public boolean isThereAreContact() {
     return isElementPresent(By.name("selected[]"));
   }
+
+  public int getContactCount() {
+    return wd.findElements(By.name("selected[]")).size();
+  }
+
+  public void goToHomePage() {
+    if (isElementPresent(By.id("maintable"))) {
+      return;}
+    click(By.linkText("home"));
+  }
 }
