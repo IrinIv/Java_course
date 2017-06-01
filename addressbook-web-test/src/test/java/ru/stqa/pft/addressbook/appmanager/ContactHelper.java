@@ -42,8 +42,8 @@ public class ContactHelper extends BaseHelper {
     wd.findElement(By.xpath("//div/div[4]/div/i/a[2]")).click();
   }
 
-  public void selectContact() {
-    click(By.name("selected[]"));
+  public void selectContact(int index) {
+    wd.findElements(By.name("selected[]")).get(index).click();
   }
 
   public void deleteSelectedContacts() {
