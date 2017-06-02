@@ -66,7 +66,7 @@ public class ContactHelper extends BaseHelper {
 
 
   public void editContact() {
-    click(By.cssSelector("img[alt='Edit']"));
+    click(By.xpath("//tr[@name='entry']/td[8]"));
   }
 
   public void updateContact() {
