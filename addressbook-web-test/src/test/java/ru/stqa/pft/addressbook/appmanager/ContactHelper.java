@@ -101,7 +101,9 @@ public class ContactHelper extends BaseHelper {
     List<WebElement> elements = wd.findElements(By.xpath("//tr[@name='entry']"));
     for (WebElement element : elements) {
       int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
-      ContactData contact = new ContactData(id, "Irina", "Iva",null, null, null, null);
+      String fname = element.findElement(By.xpath("//tr[@name='entry']/td[3]")).getText();
+      String lname = element.findElement(By.xpath("//tr[@name='entry']/td[2]")).getText();
+      ContactData contact = new ContactData(id, fname, lname,null, null, null, null);
       contacts.add(contact);
     }
     return contacts;
