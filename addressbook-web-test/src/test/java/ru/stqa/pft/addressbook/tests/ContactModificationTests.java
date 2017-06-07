@@ -23,17 +23,18 @@ public class ContactModificationTests extends TestBase {
     }
     List<ContactData> before = app.getContactHelper().getContactList();
 
-    app.getContactHelper().selectContact(before.size() - 1);
-    app.getContactHelper().editContact();
-    ContactData contact = new ContactData(before.get(before.size() - 1).getId(), "ggg", "jjj", null, null, null, null);
+    //app.getContactHelper().selectContact(3);
+    app.getContactHelper().editContact(4);
+    ContactData contact = new ContactData(before.get(4).getId(), "5", "5", null, null, null, null);
     app.getContactHelper().fillContactForm((contact), false);
     app.getContactHelper().updateContact();
     app.getContactHelper().returnHomePage();
     List<ContactData> after = app.getContactHelper().getContactList();
     Assert.assertEquals(after.size(), before.size());
 
+
+    before.remove(4);
     before.add(contact);
-    before.remove(before.size() - 1);
 
     Comparator<? super ContactData> byId = (c1, c2) -> Integer.compare(c1.getId(), c2.getId());
     before.sort(byId);

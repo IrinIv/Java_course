@@ -65,8 +65,9 @@ public class ContactHelper extends BaseHelper {
     }
 
 
-  public void editContact() {
-    click(By.cssSelector("tr:last-child > td:nth-child(8)"));
+  public void editContact(int index) {
+    wd.findElements(By.cssSelector("tr:nth-child(n) > td:nth-child(8)")).get(index).click();
+
   }
 
   public void updateContact() {
