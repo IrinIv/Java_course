@@ -18,7 +18,7 @@ public class ContactModificationTests extends TestBase {
     app.contact().homePage();
     if (app.contact().list().size() == 0 ) {
       app.goTo().contactPage();
-      app.contact().create(new ContactData("Irina", "Iva", "1234567890", "1234567890", "email@gmail.com", null), true);
+      app.contact().create(new ContactData("Irina", "Iva", "1234567890", "1234567890", "email@gmail.com", "test1"), true);
     }
   }
   @Test(enabled = true)

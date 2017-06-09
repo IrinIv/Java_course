@@ -33,7 +33,7 @@ public class GroupHelper extends BaseHelper {
   }
 
   public void initGroupCreation() {
-    click(By.name("new"));
+    click(By.xpath("//*[@name='new'][1]"));
   }
 
   public void deleteSelectedGroups() {

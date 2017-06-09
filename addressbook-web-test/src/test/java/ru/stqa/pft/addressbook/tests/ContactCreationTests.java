@@ -20,6 +20,7 @@ public class ContactCreationTests extends TestBase {
     List<ContactData> before = app.contact().list();
     app.goTo().contactPage();
     ContactData contact = new ContactData("Iri", "I", "1234567890", "1234567890", "email@gmail.com", "test1");
+
     app.contact().create((contact), true);
 
     List<ContactData> after = app.contact().list();
