@@ -40,6 +40,13 @@ public class ContactHelper extends BaseHelper {
     }
   }
 
+   public void modify(int index, ContactData contact) {
+    editContact(index);
+    fillContactForm((contact), false);
+    updateContact();
+    returnHomePage();
+  }
+
   public void returnToContactPage() {
 
     wd.findElement(By.xpath("//div/div[4]/div/i/a[2]")).click();
@@ -75,13 +82,19 @@ public class ContactHelper extends BaseHelper {
     click(By.xpath("//div[@id='content']/form[1]/input[22]"));
   }
 
-  public void createContact(ContactData contact, boolean b) {
-    fillContactForm(new ContactData("Irina", "Iva", "1234567890", "1234567890", "email@gmail.com", "test1"), true);
+  public void create(ContactData contact, boolean b) {
+    fillContactForm(contact, true);
     submitContact();
     returnToContactPage();
-
-
   }
+
+  public void delete(int index) {
+    selectContact(index);
+    deleteSelectedContacts();
+    closeAlert();
+    returnHomePage();
+  }
+
 
   public boolean isThereAreContact() {
     return isElementPresent(By.name("selected[]"));
@@ -91,13 +104,13 @@ public class ContactHelper extends BaseHelper {
     return wd.findElements(By.name("selected[]")).size();
   }
 
-  public void goToHomePage() {
+  public void homePage() {
     if (isElementPresent(By.id("maintable"))) {
       return;}
     click(By.linkText("home"));
   }
 
-  public List<ContactData> getContactList() {
+  public List<ContactData> list() {
     List<ContactData> contacts = new ArrayList<ContactData>();
     List<WebElement> elements = wd.findElements(By.xpath("//tr[@name='entry']"));
     for (WebElement element : elements) {
