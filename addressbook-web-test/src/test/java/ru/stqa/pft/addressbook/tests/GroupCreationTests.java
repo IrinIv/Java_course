@@ -10,7 +10,7 @@ import java.util.List;
 
 public class GroupCreationTests extends TestBase {
 
-  @Test(enabled = false)
+  @Test(enabled = true)
   public void testGroupCreation() {
 
     app.goTo().groupPage();
