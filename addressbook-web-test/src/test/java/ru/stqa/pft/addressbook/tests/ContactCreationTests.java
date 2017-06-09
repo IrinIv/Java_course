@@ -19,7 +19,7 @@ public class ContactCreationTests extends TestBase {
     app.contact().homePage();
     List<ContactData> before = app.contact().list();
     app.goTo().contactPage();
-    ContactData contact = new ContactData("Iri", "I", "1234567890", "1234567890", "email@gmail.com", "test1");
+    ContactData contact = new ContactData().withFirstname("Iri").withLastname("I").withHomephone("1234567890").withMobilephone("1234567890").withEmail("email@gmail.com").withGroup("test1");
 
     app.contact().create((contact), true);
 
