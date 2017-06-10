@@ -1,5 +1,6 @@
 package ru.stqa.pft.addressbook.tests;
 
+import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.GroupData;
@@ -7,7 +8,7 @@ import ru.stqa.pft.addressbook.model.Groups;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.*;
 
 /**
  * Created by IrinaIv on 5/18/2017.
@@ -27,11 +28,13 @@ public class GroupModificationTests extends TestBase {
 
     Groups before = app.group().all();
     GroupData modifiedGroup = before.iterator().next();
-    GroupData group = new GroupData().withId(modifiedGroup.getId()).withName("test3").withHeader("test2").withFooter("test3");
+    GroupData group = new GroupData().withId(modifiedGroup.getId()).withName("test6").withHeader("test3").withFooter("test4");
     app.group().modify(group);
     Groups after = app.group().all();
-    assertEquals(after.size(), before.size());
+    assertThat(after.size(),equalTo(before.size()));
+    assertThat(after, equalTo(before.withOut(modifiedGroup).withAdded(group)));
 
-    assertThat(after, equalTo(before.withOut(modifiedGroup).withAdded(modifiedGroup)));
+    System.out.println("before is: " + before);
+    System.out.println("after is: " + after);
   }
 }
