@@ -42,8 +42,10 @@ public class ContactHelper extends BaseHelper {
     }
   }
 
-   public void modify(int index, ContactData contact) {
-    editContact(index);
+
+  public void modify(ContactData contact) {
+    selectContactById(contact.getId());
+    editContact();
     fillContactForm((contact), false);
     updateContact();
     returnHomePage();
@@ -56,6 +58,10 @@ public class ContactHelper extends BaseHelper {
 
   public void selectContact(int index) {
     wd.findElements(By.name("selected[]")).get(index).click();
+  }
+
+  private void selectContactById(int id) {
+    wd.findElement(By.cssSelector("input[value='" + id +"']")).click();
   }
 
   public void deleteSelectedContacts() {
@@ -74,10 +80,10 @@ public class ContactHelper extends BaseHelper {
     }
 
 
-  public void editContact(int index) {
-    wd.findElements(By.cssSelector("tr:nth-child(n) > td:nth-child(8)")).get(index).click();
-
+  public void editContact() {
+    wd.findElement(By.cssSelector("tr:nth-child(n) > td:nth-child(8)")).click();
   }
+
 
   public void updateContact() {
 
@@ -90,13 +96,12 @@ public class ContactHelper extends BaseHelper {
     returnToContactPage();
   }
 
-  public void delete(int index) {
-    selectContact(index);
+  public void delete(ContactData contact) {
+    selectContactById(contact.getId());
     deleteSelectedContacts();
     closeAlert();
     returnHomePage();
   }
-
 
   public boolean isThereAreContact() {
     return isElementPresent(By.name("selected[]"));
@@ -112,17 +117,6 @@ public class ContactHelper extends BaseHelper {
     click(By.linkText("home"));
   }
 
-  public List<ContactData> list() {
-    List<ContactData> contacts = new ArrayList<ContactData>();
-    List<WebElement> elements = wd.findElements(By.xpath("//tr[@name='entry']"));
-    for (WebElement element : elements) {
-      int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
-      String fname = element.findElement(By.cssSelector("tr:nth-child(n) > td:nth-child(3)")).getText();
-      String lname = element.findElement(By.cssSelector("tr:nth-child(n) > td:nth-child(2)")).getText();
-      contacts.add(new ContactData().withId(id).withFirstname(fname).withLastname(lname));
-    }
-    return contacts;
-  }
 
   public Set<ContactData> all() {
     Set<ContactData> contacts = new HashSet<ContactData>();
@@ -135,5 +129,7 @@ public class ContactHelper extends BaseHelper {
     }
     return contacts;
   }
+
+
 
 }
