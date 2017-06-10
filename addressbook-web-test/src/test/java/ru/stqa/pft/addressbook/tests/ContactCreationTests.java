@@ -20,7 +20,7 @@ public class ContactCreationTests extends TestBase {
     app.contact().homePage();
     Set<ContactData> before = app.contact().all();
     app.goTo().contactPage();
-    ContactData contact = new ContactData().withFirstname("Iri").withLastname("I").withHomephone("1234567890").withMobilephone("1234567890").withEmail("email@gmail.com").withGroup("test3");
+    ContactData contact = new ContactData().withFirstname("Tanya").withLastname("I").withHomephone("1234567890").withMobilephone("1234567890").withEmail("email@gmail.com").withGroup("test3");
 
     app.contact().create((contact), true);
 
