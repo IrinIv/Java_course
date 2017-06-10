@@ -13,6 +13,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import static java.lang.String.*;
+
 /**
  * Created by IrinaIv on 5/18/2017.
  */
@@ -86,7 +88,7 @@ public class ContactHelper extends BaseHelper {
   }
 
   public void editContactById(int id) {
-    wd.findElements(By.cssSelector("")).get(id).click();
+    wd.findElement(By.cssSelector(String.format("a[href='edit.php?id=%s']", id))).click();
   }
 
 
