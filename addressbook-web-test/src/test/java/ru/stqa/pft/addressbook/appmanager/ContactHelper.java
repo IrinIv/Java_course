@@ -8,12 +8,7 @@ import org.openqa.selenium.support.ui.Select;
 import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.Contacts;
 
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
-
-import static java.lang.String.*;
 
 /**
  * Created by IrinaIv on 5/18/2017.
@@ -51,6 +46,7 @@ public class ContactHelper extends BaseHelper {
     editContactById(contact.getId());
     fillContactForm((contact), false);
     updateContact();
+    contactCache = null;
     returnHomePage();
   }
 
@@ -101,6 +97,7 @@ public class ContactHelper extends BaseHelper {
   public void create(ContactData contact, boolean b) {
     fillContactForm(contact, true);
     submitContact();
+    contactCache = null;
     returnToContactPage();
   }
 
@@ -108,6 +105,7 @@ public class ContactHelper extends BaseHelper {
     selectContactById(contact.getId());
     deleteSelectedContacts();
     closeAlert();
+    contactCache = null;
     returnHomePage();
   }
 
@@ -124,18 +122,21 @@ public class ContactHelper extends BaseHelper {
       return;}
     click(By.linkText("home"));
   }
-
+  private Contacts contactCache = null;
 
   public Contacts all() {
-    Contacts contacts = new Contacts();
+    if(contactCache != null){
+      return new Contacts(contactCache);
+    }
+    contactCache = new Contacts();
     List<WebElement> elements = wd.findElements(By.xpath("//tr[@name='entry']"));
     for (WebElement element : elements) {
       int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("id"));
       String fname = element.findElement(By.cssSelector("tr:nth-child(n) > td:nth-child(3)")).getText();
       String lname = element.findElement(By.cssSelector("tr:nth-child(n) > td:nth-child(2)")).getText();
-      contacts.add(new ContactData().withId(id).withFirstname(fname).withLastname(lname));
+      contactCache.add(new ContactData().withId(id).withFirstname(fname).withLastname(lname));
     }
-    return contacts;
+    return new Contacts(contactCache);
   }
 
 
