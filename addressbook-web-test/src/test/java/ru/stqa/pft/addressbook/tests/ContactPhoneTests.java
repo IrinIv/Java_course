@@ -38,12 +38,20 @@ public class ContactPhoneTests extends TestBase {
     ContactData contact = before.iterator().next();
     ContactData contactInfoFromEditForm = app.contact().infoFromEditForm(contact);
 
-    assertThat(contact.getAddress(), equalTo(cleaned(contactInfoFromEditForm.getAddress())));
+   assertThat(contact.getAddress(), equalTo(cleaned(contactInfoFromEditForm.getAddress())));
     //assertThat(contact.getHomephone(), equalTo(cleaned(contactInfoFromEditForm.getHomephone())));
     //assertThat(contact.getMobilephone(), equalTo(cleaned(contactInfoFromEditForm.getMobilephone())));
     //assertThat(contact.getWorkphone(), equalTo(contactInfoFromEditForm.getWorkphone()));
-    assertThat(contact.getAllphones(), equalTo(mergePhones(contactInfoFromEditForm)));
-    assertThat(contact.getEmail(), equalTo(contactInfoFromEditForm.getEmail()));
+    //assertThat(contact.getAllphones(), equalTo(mergePhones(contactInfoFromEditForm)));
+    //assertThat(contact.getEmail(), equalTo(contactInfoFromEditForm.getEmail()));
+    //assertThat(contact.getAllemails(), equalTo(mergeEmails(contactInfoFromEditForm)));
+  }
+
+  private String mergeEmails(ContactData contact) {
+    return Arrays.asList(contact.getEmail(), contact.getEmail2(), contact.getEmail3())
+            .stream().filter((s) -> ! s.equals(""))
+            .map(ContactPhoneTests::cleaned)
+            .collect(Collectors.joining("\n"));
   }
 
   private String mergePhones(ContactData contact) {
@@ -51,7 +59,6 @@ public class ContactPhoneTests extends TestBase {
             .stream().filter((s) -> ! s.equals(""))
             .map(ContactPhoneTests::cleaned)
             .collect(Collectors.joining("\n"));
-
   }
 
   public static String cleaned(String phone) {
