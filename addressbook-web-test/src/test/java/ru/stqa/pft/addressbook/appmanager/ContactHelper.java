@@ -137,10 +137,10 @@ public class ContactHelper extends BaseHelper {
       String fname = element.findElement(By.cssSelector("tr:nth-child(n) > td:nth-child(3)")).getText();
       String lname = element.findElement(By.cssSelector("tr:nth-child(n) > td:nth-child(2)")).getText();
       String address = element.findElement(By.cssSelector("tr:nth-child(n) > td:nth-child(4)")).getText();
-      //String allPhones = element.findElement(By.cssSelector("tr:nth-child(n) > td:nth-child(6)")).getText();
-      String[] phones = element.findElement(By.cssSelector("tr:nth-child(n) > td:nth-child(6)")).getText().split("\n");
+      String allPhones = element.findElement(By.cssSelector("tr:nth-child(n) > td:nth-child(6)")).getText();
+      //String[] phones = element.findElement(By.cssSelector("tr:nth-child(n) > td:nth-child(6)")).getText().split("\n");
       String email = element.findElement(By.cssSelector("tr:nth-child(n) > td:nth-child(5)")).getText();
-      contactCache.add(new ContactData().withId(id).withFirstname(fname).withLastname(lname).withAddress(address).withHomephone(phones[0]).withMobilephone(phones[1]).withWorkphone(phones[2]).withEmail(email));
+      contactCache.add(new ContactData().withId(id).withFirstname(fname).withLastname(lname).withAddress(address).withAllphones(allPhones).withEmail(email));
     }
     return new Contacts(contactCache);
   }
