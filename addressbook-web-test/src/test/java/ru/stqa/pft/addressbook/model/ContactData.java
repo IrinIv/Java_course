@@ -18,12 +18,33 @@ public class ContactData {
   private String address;
    @Expose
   private String homephone;
+   @Expose
   private String mobilephone;
+   @Expose
   private String workphone;
   private String allphones;
    @Expose
   private String email;
+   @Expose
   private String email2;
+
+   @Override
+   public String toString() {
+     return "ContactData{" +
+             "firstname='" + firstname + '\'' +
+             ", lastname='" + lastname + '\'' +
+             ", address='" + address + '\'' +
+             ", homephone='" + homephone + '\'' +
+             ", mobilephone='" + mobilephone + '\'' +
+             ", workphone='" + workphone + '\'' +
+             ", email='" + email + '\'' +
+             ", email2='" + email2 + '\'' +
+             ", email3='" + email3 + '\'' +
+             ", group='" + group + '\'' +
+             '}';
+   }
+
+   @Expose
   private String email3;
   private String allemails;
    @Expose
@@ -176,16 +197,5 @@ public class ContactData {
     result = 31 * result + (lastname != null ? lastname.hashCode() : 0);
     return result;
   }
-  @Override
-  public String toString() {
-    return "ContactData{" +
-            "firstname='" + firstname + '\'' +
-            ", lastname='" + lastname + '\'' +
-            ", address='" + address + '\'' +
-            ", homephone='" + homephone + '\'' +
-            ", email='" + email + '\'' +
-            ", group='" + group + '\'' +
-            '}';
-  }
 
-}
+ }
