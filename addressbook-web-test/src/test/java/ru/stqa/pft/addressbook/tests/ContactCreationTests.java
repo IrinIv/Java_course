@@ -1,10 +1,14 @@
 package ru.stqa.pft.addressbook.tests;
 
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.Contacts;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -14,13 +18,25 @@ import static org.hamcrest.MatcherAssert.assertThat;
  */
 public class ContactCreationTests extends TestBase {
 
-  @Test(enabled = true)
-  public void testContactCreation() {
+  @DataProvider
+  public Iterator<Object []> validContacts() {
+    List<Object []> list = new ArrayList<Object []>();
+    list.add(new Object[]{new ContactData().withFirstname("firstname 1").withLastname("lastname 1")
+            .withAddress("address 1").withHomephone("homephone 1").withEmail("email 1").withGroup("test 1")});
+    list.add(new Object[]{new ContactData().withFirstname("firstname 1").withLastname("lastname 1")
+            .withAddress("address 2").withHomephone("homephone 2").withEmail("email 2").withGroup("test 1")});
+    list.add(new Object[]{new ContactData().withFirstname("firstname 3").withLastname("lastname 3")
+            .withAddress("address 3").withHomephone("homephone 1").withEmail("email 1").withGroup("test 1")});
+    return list.iterator();
+  }
+
+
+  @Test(dataProvider = "validContacts")
+  public void testContactCreation(ContactData contact) {
     app.contact().homePage();
     Contacts before = app.contact().all();
     app.goTo().contactPage();
     File photo = new File("src/test/resources/java.png");
-    ContactData contact = new ContactData().withFirstname("Tanya").withLastname("ly").withAddress("address").withHomephone("123-456-7890").withMobilephone("1234567890").withWorkphone("2345").withEmail("email@gmail.com").withGroup("test1").withPhoto(photo);
     app.contact().create((contact), true);
     assertThat(app.contact().count(), equalTo(before.size() + 1));
     Contacts after = app.contact().all();

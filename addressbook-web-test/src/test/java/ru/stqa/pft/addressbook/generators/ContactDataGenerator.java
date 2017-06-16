@@ -12,6 +12,8 @@ import java.io.Writer;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.lang.String.format;
+
 /**
  * Created by IrinaIv on 6/15/2017.
  */
@@ -46,9 +48,9 @@ public class ContactDataGenerator {
   private void save(List<ContactData> contacts, File file) throws IOException {
     Writer writer = new FileWriter(file);
     for(ContactData contact : contacts) {
-      writer.write(String.format("%s;%s;%s;%s;%s\n", contact.getFirstname(),
+      writer.write(format("%s;%s;%s;%s;%s;%s\n", contact.getFirstname(),
               contact.getLastname(), contact.getAddress(),
-              contact.getHomephone(), contact.getEmail()));
+              contact.getHomephone(), contact.getEmail(), contact.getGroup()));
     }
     writer.close();
   }
@@ -56,9 +58,9 @@ public class ContactDataGenerator {
   private List<ContactData> generateContacts(int count) {
     List<ContactData> contacts = new ArrayList<>();
     for(int i = 0; i < count; i++) {
-      contacts.add(new ContactData().withFirstname(String.format("firstname %s", i))
-              .withLastname(String.format("lastname %s", i)).withAddress(String.format("address %s", i))
-              .withHomephone(String.format("homephone %s", i)).withEmail(String.format("email %s", i)));
+      contacts.add(new ContactData().withFirstname(format("firstname %s", i))
+              .withLastname(format("lastname %s", i)).withAddress(format("address %s", i))
+              .withHomephone(format("homephone %s", i)).withEmail(format("email %s", i)).withGroup(format("test %s", i)));
     }
     return contacts;
   }
