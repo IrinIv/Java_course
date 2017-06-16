@@ -1,0 +1,26 @@
+[
+  {
+    "firstname": "firstname 0",
+    "lastname": "lastname 0",
+    "address": "address 0",
+    "homephone": "homephone 0",
+    "email": "email 0",
+    "group": "test 0"
+  },
+  {
+    "firstname": "firstname 1",
+    "lastname": "lastname 1",
+    "address": "address 1",
+    "homephone": "homephone 1",
+    "email": "email 1",
+    "group": "test 1"
+  },
+  {
+    "firstname": "firstname 2",
+    "lastname": "lastname 2",
+    "address": "address 2",
+    "homephone": "homephone 2",
+    "email": "email 2",
+    "group": "test 2"
+  }
+]

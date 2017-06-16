@@ -1,0 +1,26 @@
+<list>
+  <contact>
+    <firstname>firstname 0</firstname>
+    <lastname>lastname 0</lastname>
+    <address>address 0</address>
+    <homephone>homephone 0</homephone>
+    <email>email 0</email>
+    <group>test 0</group>
+  </contact>
+  <contact>
+    <firstname>firstname 1</firstname>
+    <lastname>lastname 1</lastname>
+    <address>address 1</address>
+    <homephone>homephone 1</homephone>
+    <email>email 1</email>
+    <group>test 1</group>
+  </contact>
+  <contact>
+    <firstname>firstname 2</firstname>
+    <lastname>lastname 2</lastname>
+    <address>address 2</address>
+    <homephone>homephone 2</homephone>
+    <email>email 2</email>
+    <group>test 2</group>
+  </contact>
+</list>
