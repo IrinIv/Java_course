@@ -43,24 +43,30 @@ public class ContactPhoneTests extends TestBase {
     assertThat(contact.getAllemails(), equalTo(mergeEmails(contactInfoFromEditForm)));
   }
 
-  private String mergeEmails(ContactData contact) {
+  public static String mergeEmails(ContactData contact) {
     return Arrays.asList(contact.getEmail(), contact.getEmail2(), contact.getEmail3())
-            .stream().filter((s) -> ! s.equals(""))
+            .stream().filter((s) -> s != null && ! s.equals(""))
             .map(ContactPhoneTests::cleaned)
             .collect(Collectors.joining("\n"));
   }
 
-  private String mergePhones(ContactData contact) {
+  public static String mergePhones(ContactData contact) {
     return Arrays.asList(contact.getHomephone(), contact.getMobilephone(), contact.getWorkphone())
-            .stream().filter((s) -> ! s.equals(""))
-            .map(ContactPhoneTests::cleaned)
+            .stream().filter((s) -> s != null && !s.equals(""))
+            .map(ContactPhoneTests::cleanedphone)
             .collect(Collectors.joining("\n"));
+  } //
+
+  public static String cleanedphone(String phone) {
+
+    return phone.replaceAll("\\s", "").replaceAll("[-()]", "");
   }
 
   public static String cleaned(String phone) {
 
-    return phone.replaceAll("\\s", "").replaceAll("[-()]", "");
+    return phone.replaceAll("[-()]", "");
   }
+
 
 
 }
