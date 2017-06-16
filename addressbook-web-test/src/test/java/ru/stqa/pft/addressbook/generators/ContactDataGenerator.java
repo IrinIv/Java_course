@@ -36,7 +36,7 @@ public class ContactDataGenerator {
     ContactDataGenerator generator = new ContactDataGenerator();
     JCommander jCommander = new JCommander(generator);
     try {
-    jCommander.parse(args);
+      jCommander.parse(args);
     } catch (ParameterException ex) {
       jCommander.usage();
       return;
@@ -45,15 +45,14 @@ public class ContactDataGenerator {
   }
 
   private void run() throws IOException {
-    List<ContactData> contacts =  generateContacts(count);
-    if(format.equals("csv")) {
+    List<ContactData> contacts = generateContacts(count);
+    if (format.equals("csv")) {
       saveAsCsv(contacts, new File(file));
-    } else if(format.equals("xml")) {
+    } else if (format.equals("xml")) {
       saveAsXml(contacts, new File(file));
-    } else if(format.equals("json")) {
+    } else if (format.equals("json")) {
       saveAsJson(contacts, new File(file));
-    }
-    else {
+    } else {
       System.out.println("Unrecognized format " + format);
     }
   }
@@ -61,7 +60,7 @@ public class ContactDataGenerator {
   private void saveAsJson(List<ContactData> contacts, File file) throws IOException {
     Gson gson = new GsonBuilder().setPrettyPrinting().excludeFieldsWithoutExposeAnnotation().create();
     String json = gson.toJson(contacts);
-    Writer writer  = new FileWriter(file);
+    Writer writer = new FileWriter(file);
     writer.write(json);
     writer.close();
   }
@@ -71,7 +70,7 @@ public class ContactDataGenerator {
     XStream xstream = new XStream();
     xstream.processAnnotations(ContactData.class);
     String xml = xstream.toXML(contacts);
-    Writer writer  = new FileWriter(file);
+    Writer writer = new FileWriter(file);
     writer.write(xml);
     writer.close();
   }
@@ -79,7 +78,7 @@ public class ContactDataGenerator {
 
   private void saveAsCsv(List<ContactData> contacts, File file) throws IOException {
     Writer writer = new FileWriter(file);
-    for(ContactData contact : contacts) {
+    for (ContactData contact : contacts) {
       writer.write(format("%s;%s;%s;%s;%s;%s\n", contact.getFirstname(),
               contact.getLastname(), contact.getAddress(),
               contact.getHomephone(), contact.getEmail(), contact.getGroup()));
@@ -89,7 +88,7 @@ public class ContactDataGenerator {
 
   private List<ContactData> generateContacts(int count) {
     List<ContactData> contacts = new ArrayList<>();
-    for(int i = 0; i < count; i++) {
+    for (int i = 0; i < count; i++) {
       contacts.add(new ContactData().withFirstname(format("firstname %s", i))
               .withLastname(format("lastname %s", i)).withAddress(format("address %s", i))
               .withHomephone(format("homephone %s", i)).withEmail(format("email %s", i)).withGroup(format("test %s", i)));
