@@ -17,7 +17,14 @@ public class GroupData {
   @Expose
   private String footer;
 
-
+  @Override
+  public String toString() {
+    return "GroupData{" +
+            "name='" + name + '\'' +
+            ", header='" + header + '\'' +
+            ", footer='" + footer + '\'' +
+            '}';
+  }
 
   public int getId() {
     return id;
@@ -53,14 +60,6 @@ public class GroupData {
   public GroupData withFooter(String footer) {
     this.footer = footer;
     return this;
-  }
-
-  @Override
-  public String toString() {
-    return "GroupData{" +
-            "id=" + id +
-            ", name='" + name + '\'' +
-            '}';
   }
 
   @Override
