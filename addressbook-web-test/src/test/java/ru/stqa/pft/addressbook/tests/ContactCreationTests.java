@@ -75,7 +75,7 @@ public class ContactCreationTests extends TestBase {
   }
 
 
-  @Test(dataProvider = "validContactsFromCsv")
+  @Test(dataProvider = "validContactsFromXml")
   public void testContactCreation(ContactData contact) {
 
     app.contact().homePage();

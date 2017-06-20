@@ -3,24 +3,26 @@
     <firstname>firstname 0</firstname>
     <lastname>lastname 0</lastname>
     <address>address 0</address>
-    <homephone>homephone 0</homephone>
+    <homephone>3450</homephone>
+    <mobilephone>5670</mobilephone>
+    <workphone>12-30</workphone>
     <email>email 0</email>
+    <email2>email 0</email2>
+    <email3>email 0</email3>
     <group>test 0</group>
+    <photo>src\test\resources\java.png</photo>
   </contact>
   <contact>
     <firstname>firstname 1</firstname>
     <lastname>lastname 1</lastname>
     <address>address 1</address>
-    <homephone>homephone 1</homephone>
+    <homephone>3451</homephone>
+    <mobilephone>5671</mobilephone>
+    <workphone>12-31</workphone>
     <email>email 1</email>
+    <email2>email 1</email2>
+    <email3>email 1</email3>
     <group>test 1</group>
-  </contact>
-  <contact>
-    <firstname>firstname 2</firstname>
-    <lastname>lastname 2</lastname>
-    <address>address 2</address>
-    <homephone>homephone 2</homephone>
-    <email>email 2</email>
-    <group>test 2</group>
+    <photo>src\test\resources\java.png</photo>
   </contact>
 </list>
