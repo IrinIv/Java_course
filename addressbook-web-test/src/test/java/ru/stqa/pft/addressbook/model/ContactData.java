@@ -27,29 +27,13 @@ public class ContactData {
   private String email;
    @Expose
   private String email2;
-
-   @Override
-   public String toString() {
-     return "ContactData{" +
-             "firstname='" + firstname + '\'' +
-             ", lastname='" + lastname + '\'' +
-             ", address='" + address + '\'' +
-             ", homephone='" + homephone + '\'' +
-             ", mobilephone='" + mobilephone + '\'' +
-             ", workphone='" + workphone + '\'' +
-             ", email='" + email + '\'' +
-             ", email2='" + email2 + '\'' +
-             ", email3='" + email3 + '\'' +
-             ", group='" + group + '\'' +
-             '}';
-   }
-
    @Expose
   private String email3;
   private String allemails;
    @Expose
   private String group;
-  private File photo;
+   @Expose
+   private File photo;
 
 
   public int getId() {
@@ -197,5 +181,21 @@ public class ContactData {
     result = 31 * result + (lastname != null ? lastname.hashCode() : 0);
     return result;
   }
+
+   @Override
+   public String toString() {
+     return "ContactData{" +
+             "firstname='" + firstname + '\'' +
+             ", lastname='" + lastname + '\'' +
+             ", address='" + address + '\'' +
+             ", homephone='" + homephone + '\'' +
+             ", mobilephone='" + mobilephone + '\'' +
+             ", workphone='" + workphone + '\'' +
+             ", email='" + email + '\'' +
+             ", email2='" + email2 + '\'' +
+             ", email3='" + email3 + '\'' +
+             ", group='" + group + '\'' +
+             '}';
+   }
 
  }

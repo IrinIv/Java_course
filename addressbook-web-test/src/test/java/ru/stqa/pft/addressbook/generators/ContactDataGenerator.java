@@ -6,14 +6,18 @@ import com.beust.jcommander.ParameterException;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.thoughtworks.xstream.XStream;
+
+import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.io.output.ByteArrayOutputStream;
 import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.GroupData;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.Writer;
+import javax.imageio.ImageIO;
+import javax.imageio.metadata.IIOMetadataNode;
+import java.awt.image.BufferedImage;
+import java.io.*;
 import java.util.ArrayList;
+
 import java.util.List;
 
 import static java.lang.String.format;
@@ -31,6 +35,7 @@ public class ContactDataGenerator {
 
   @Parameter(names = "-d", description = "Data format")
   public String format;
+  private IIOMetadataNode node;
 
   public static void main(String[] args) throws IOException {
     ContactDataGenerator generator = new ContactDataGenerator();
@@ -70,20 +75,20 @@ public class ContactDataGenerator {
     XStream xstream = new XStream();
     xstream.processAnnotations(ContactData.class);
     String xml = xstream.toXML(contacts);
-    try ( Writer writer = new FileWriter(file)) {
+    try (Writer writer = new FileWriter(file)) {
       writer.write(xml);
     }
   }
 
 
   private void saveAsCsv(List<ContactData> contacts, File file) throws IOException {
-    try ( Writer writer = new FileWriter(file)) {
+    try (Writer writer = new FileWriter(file)) {
       for (ContactData contact : contacts) {
-        writer.write(format("%s;%s;%s;%s;%s;%s;%s;%s;%s;%s\n", contact.getFirstname(),
+        writer.write(format("%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s\n", contact.getFirstname(),
                 contact.getLastname(), contact.getAddress(),
                 contact.getHomephone(), contact.getMobilephone(),
-                contact.getWorkphone(), contact.getEmail(),contact.getEmail2(),
-                contact.getEmail3(), contact.getGroup()));
+                contact.getWorkphone(), contact.getEmail(), contact.getEmail2(),
+                contact.getEmail3(), contact.getGroup(), contact.getPhoto()));
       }
     }
   }
@@ -100,9 +105,15 @@ public class ContactDataGenerator {
               .withEmail(String.format("email %s", i))
               .withEmail2(String.format("email %s", i))
               .withEmail3(String.format("email %s", i))
-              .withGroup(String.format("test %s", i)));
+              .withGroup(String.format("test %s", i))
+              .withPhoto(new File("src/test/resources/java.png")));
     }
     return contacts;
   }
-
 }
+
+
+
+
+
+

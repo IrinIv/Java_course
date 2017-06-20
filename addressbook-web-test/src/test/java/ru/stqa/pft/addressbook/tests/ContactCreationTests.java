@@ -10,10 +10,8 @@ import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.Contacts;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -27,16 +25,27 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class ContactCreationTests extends TestBase {
 
   @DataProvider
+  public Iterator<Object[]> validContactsFromCsv() throws IOException {
+    List<Object[]> list = new ArrayList<Object[]>();
+    BufferedReader reader = new BufferedReader(new FileReader(new File("src/test/resources/contacts.csv")));
+    String line = reader.readLine();
+    while (line != null) {
+      String[] split = line.split(";");
+      list.add(new Object[]{new ContactData().withFirstname(split[0]).withLastname(split[1])
+              .withAddress(split[2]).withHomephone(split[3]).withMobilephone(split[4])
+              .withWorkphone(split[5]).withEmail(split[6]).withEmail2(split[7]).withEmail3(split[8])
+              .withGroup(split[9]).withPhoto(new File(split[10]))});
+      line = reader.readLine();
+    }
+    return list.iterator();
+  }
+
+  @DataProvider
   public Iterator<Object[]> validContactsFromXml() throws IOException {
-    //List<Object []> list = new ArrayList<Object []>();
     try (BufferedReader reader = new BufferedReader(new FileReader(new File("src/test/resources/contacts.xml")))) {
       String xml = "";
       String line = reader.readLine();
       while (line != null) {
-        //String[] split = line.split(";");
-        //list.add(new Object[]{new ContactData().withFirstname(split[0]).withLastname(split[1])
-        //        .withAddress(split[2]).withHomephone(split[3])
-        //        .withEmail(split[4]).withGroup(split[5])});
         xml += line;
         line = reader.readLine();
       }
@@ -44,9 +53,8 @@ public class ContactCreationTests extends TestBase {
       xstream.processAnnotations(ContactData.class);
       List<ContactData> contacts = (List<ContactData>) xstream.fromXML(xml);
       return contacts.stream().map((c) -> new Object[]{c}).collect(Collectors.toList()).iterator();
-      //return list.iterator();
     }
-    }
+  }
 
 
   @DataProvider
@@ -67,14 +75,15 @@ public class ContactCreationTests extends TestBase {
   }
 
 
-  @Test(dataProvider = "validContactsFromJson")
+  @Test(dataProvider = "validContactsFromCsv")
   public void testContactCreation(ContactData contact) {
 
     app.contact().homePage();
     Contacts before = app.contact().all();
     app.goTo().contactPage();
     File photo = new File("src/test/resources/java.png");
-    app.contact().create((contact.withAllphones(ContactPhoneTests.mergePhones(contact)).withAllemails(ContactPhoneTests.mergeEmails(contact))), true);
+    app.contact().create((contact.withAllphones(ContactPhoneTests.mergePhones(contact))
+            .withAllemails(ContactPhoneTests.mergeEmails(contact)).withPhoto(photo)), true);
     assertThat(app.contact().count(), equalTo(before.size() + 1));
     Contacts after = app.contact().all();
     assertThat(after, equalTo
