@@ -56,7 +56,6 @@ public class ContactCreationTests extends TestBase {
     }
   }
 
-
   @DataProvider
   public Iterator<Object[]> validContactsFromJson() throws IOException {
 
