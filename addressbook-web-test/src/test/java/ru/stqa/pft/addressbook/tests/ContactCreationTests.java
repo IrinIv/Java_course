@@ -5,10 +5,13 @@ import com.google.gson.reflect.TypeToken;
 import com.thoughtworks.xstream.XStream;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.Contacts;
+import ru.stqa.pft.addressbook.model.GroupData;
+import ru.stqa.pft.addressbook.model.Groups;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -73,16 +76,31 @@ public class ContactCreationTests extends TestBase {
     }
   }
 
+  @BeforeMethod(enabled = true)
+  public void ensurePreconditions() {
+    app.goTo().groupPage();
+    if (app.db().groups().size() == 0) {
+      app.goTo().groupPage();
+      app.group().create(new GroupData().withName("test3"));
+    }
+  }
 
   @Test(dataProvider = "validContactsFromJson")
   public void testContactCreation(ContactData contact) {
 
     app.contact().homePage();
+    Groups groups = app.db().groups();
     Contacts before = app.db().contacts();
-    app.goTo().contactPage();
+    ContactData newContact = new ContactData().withFirstname(contact.getFirstname())
+            .withLastname(contact.getLastname()).withAddress(contact.getAddress())
+            .withHomephone(contact.getHomephone()).withEmail(contact.getEmail())
+            .inGroup(groups.iterator().next());
     File photo = new File("src/test/resources/java.png");
-    app.contact().create((contact.withAllphones(ContactPhoneTests.mergePhones(contact))
-            .withAllemails(ContactPhoneTests.mergeEmails(contact))), true);
+    app.goTo().contactPage();
+    app.contact().create(newContact, true);
+
+    //app.contact().create((contact.withAllphones(ContactPhoneTests.mergePhones(contact))
+    //        .withAllemails(ContactPhoneTests.mergeEmails(contact))), true);
     assertThat(app.contact().count(), equalTo(before.size() + 1));
     Contacts after = app.db().contacts();
     assertThat(after, equalTo

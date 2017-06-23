@@ -8,8 +8,7 @@
     "workphone": "12-30",
     "email": "email 0",
     "email2": "email 0",
-    "email3": "email 0",
-    "group": "test 0"
+    "email3": "email 0"
   },
   {
     "firstname": "firstname 1",
@@ -20,7 +19,6 @@
     "workphone": "12-31",
     "email": "email 1",
     "email2": "email 1",
-    "email3": "email 1",
-    "group": "test 1"
+    "email3": "email 1"
   }
 ]

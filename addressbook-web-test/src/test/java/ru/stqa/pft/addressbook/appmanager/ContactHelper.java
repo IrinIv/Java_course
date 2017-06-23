@@ -39,7 +39,11 @@ public class ContactHelper extends BaseHelper {
     //attach(By.name("photo"), contactData.getPhoto());
 
     if (creation) {
-      //new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
+      if (contactData.getGroups().size() > 0) {
+        Assert.assertTrue(contactData.getGroups().size() == 1);
+        new Select(wd.findElement(By.name("new_group")))
+                .selectByVisibleText(contactData.getGroups().iterator().next().getName());
+      }
     } else {
       Assert.assertFalse(isElementPresent(By.name("new_group")));
     }
@@ -65,7 +69,7 @@ public class ContactHelper extends BaseHelper {
   }
 
   private void selectContactById(int id) {
-   wd.findElement(By.cssSelector("input[value='" + id +"']")).click();
+    wd.findElement(By.cssSelector("input[value='" + id + "']")).click();
   }
 
   public void deleteSelectedContacts() {
@@ -79,9 +83,10 @@ public class ContactHelper extends BaseHelper {
 
   public void returnHomePage() {
     if (isElementPresent(By.id("maintable"))) {
-      return;}
-      click(By.linkText("home"));
+      return;
     }
+    click(By.linkText("home"));
+  }
 
 
   public void editContact(int index) {
@@ -91,7 +96,6 @@ public class ContactHelper extends BaseHelper {
   public void editContactById(int id) {
     wd.findElement(By.cssSelector(String.format("a[href='edit.php?id=%s']", id))).click();
   }
-
 
 
   public void updateContact() {
@@ -124,13 +128,15 @@ public class ContactHelper extends BaseHelper {
 
   public void homePage() {
     if (isElementPresent(By.id("maintable"))) {
-      return;}
+      return;
+    }
     click(By.linkText("home"));
   }
+
   private Contacts contactCache = null;
 
   public Contacts all() {
-    if(contactCache != null){
+    if (contactCache != null) {
       return new Contacts(contactCache);
     }
     contactCache = new Contacts();
