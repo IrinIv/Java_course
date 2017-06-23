@@ -105,8 +105,8 @@ public class ContactDataGenerator {
               .withEmail(String.format("email %s", i))
               .withEmail2(String.format("email %s", i))
               .withEmail3(String.format("email %s", i))
-              .withGroup(String.format("test %s", i)));
-              //.withPhoto(new File("src/test/resources/java.png")));
+              .withGroup(String.format("test %s", i))
+              .withPhoto(new File("src/test/resources/java.png")));
     }
     return contacts;
   }

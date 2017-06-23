@@ -78,16 +78,15 @@ public class ContactCreationTests extends TestBase {
   public void testContactCreation(ContactData contact) {
 
     app.contact().homePage();
-    Contacts before = app.db().contacts();
+    Contacts before = app.contact().all();
     app.goTo().contactPage();
     File photo = new File("src/test/resources/java.png");
     app.contact().create((contact.withAllphones(ContactPhoneTests.mergePhones(contact))
-            .withAllemails(ContactPhoneTests.mergeEmails(contact))), true);
+            .withAllemails(ContactPhoneTests.mergeEmails(contact)).withPhoto(photo)), true);
     assertThat(app.contact().count(), equalTo(before.size() + 1));
-    Contacts after = app.db().contacts();
+    Contacts after = app.contact().all();
     assertThat(after, equalTo
             (before.withAdded(contact.withId(after.stream().mapToInt((c) -> c.getId()).max().getAsInt()))));
-    verifyContactListInUi();
 
   }
 
