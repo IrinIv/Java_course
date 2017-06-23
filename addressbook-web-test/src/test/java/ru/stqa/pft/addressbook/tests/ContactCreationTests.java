@@ -33,8 +33,8 @@ public class ContactCreationTests extends TestBase {
       String[] split = line.split(";");
       list.add(new Object[]{new ContactData().withFirstname(split[0]).withLastname(split[1])
               .withAddress(split[2]).withHomephone(split[3]).withMobilephone(split[4])
-              .withWorkphone(split[5]).withEmail(split[6]).withEmail2(split[7]).withEmail3(split[8])
-              .withGroup(split[9]).withPhoto(new File(split[10]))});
+              .withWorkphone(split[5]).withEmail(split[6]).withEmail2(split[7]).withEmail3(split[8])});
+              //.withGroup(split[9]).withPhoto(new File(split[10]))});
       line = reader.readLine();
     }
     return list.iterator();

@@ -20,7 +20,11 @@ public class ContactDeletionTests extends TestBase {
     app.contact().homePage();
     if (app.db().contacts().size() == 0) {
       app.goTo().contactPage();
-      app.contact().create(new ContactData().withFirstname("I").withLastname("V").withAddress("ad").withHomephone("1234").withMobilephone("1234").withWorkphone("2345").withAllphones("").withEmail("email@gmail.com").withEmail2("email").withEmail3("email").withGroup("test1"), true);
+      app.contact().create(new ContactData().withFirstname("I").withLastname("V")
+              .withAddress("ad").withHomephone("1234").withMobilephone("1234")
+              .withWorkphone("2345").withAllphones("").withEmail("email@gmail.com")
+              .withEmail2("email").withEmail3("email"), true);
+             // .withGroup("test1"), true);
     }
   }
 

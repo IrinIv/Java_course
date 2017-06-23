@@ -22,7 +22,11 @@ public class ContactModificationTests extends TestBase {
     app.contact().homePage();
     if (app.db().contacts().size() == 0 ) {
       app.goTo().contactPage();
-      app.contact().create(new ContactData().withFirstname("Irina").withLastname("Iva").withAddress("address").withHomephone("1234567890").withMobilephone("1234567890").withWorkphone("2345").withEmail("email@gmail.com").withGroup("test1"), true);
+      app.contact().create(new ContactData().withFirstname("Irina").withLastname("Iva")
+              .withAddress("address").withHomephone("1234567890")
+              .withMobilephone("1234567890").withWorkphone("2345")
+              .withEmail("email@gmail.com"), true);
+             // .withGroup("test1"), true);
     }
   }
 
