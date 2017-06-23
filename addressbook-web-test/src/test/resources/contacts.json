@@ -9,8 +9,7 @@
     "email": "email 0",
     "email2": "email 0",
     "email3": "email 0",
-    "group": "test 0",
-    "photo": {}
+    "group": "test 0"
   },
   {
     "firstname": "firstname 1",
@@ -22,7 +21,6 @@
     "email": "email 1",
     "email2": "email 1",
     "email3": "email 1",
-    "group": "test 1",
-    "photo": {}
+    "group": "test 1"
   }
 ]
