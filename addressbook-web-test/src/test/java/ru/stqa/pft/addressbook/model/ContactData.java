@@ -57,7 +57,7 @@ public class ContactData {
    @Expose
    @Transient
   private String group;
-   @Expose
+   //@Expose
    @Transient
    private String photo;
 
