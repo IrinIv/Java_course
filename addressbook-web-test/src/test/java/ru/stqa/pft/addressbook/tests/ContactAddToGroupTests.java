@@ -26,29 +26,35 @@ import static org.hamcrest.MatcherAssert.assertThat;
  */
 public class ContactAddToGroupTests extends TestBase {
 
-    @BeforeMethod
-    public void ensurePreconditions() {
+  @BeforeMethod
+  public void ensurePreconditions() {
+    app.goTo().groupPage();
+    if (app.db().groups().size() == 0) {
       app.goTo().groupPage();
-      if (app.db().groups().size() == 0) {
-        app.goTo().groupPage();
-        app.group().create(new GroupData().withName("test3"));
-      }
+      app.group().create(new GroupData().withName("test3"));
     }
+  }
 
   @Test
   public void testContactAddToGroup() {
 
-      app.contact().homePage();
-      Groups groups = app.db().groups();
-      Contacts before = app.db().contacts();
-      ContactData selectedContact = before.iterator().next();
-      app.contact().addContactToGroup(selectedContact);
-      Contacts selected = app.db().contacts().withAddedSelected(selectedContact);
+    app.contact().homePage();
+    Groups groups = app.db().groups();
+    Contacts before = app.db().contacts();
+    app.contact().selectGroup();
+    Contacts after = app.contact().all();
 
-      assertThat(((app.db().contacts().withAddedSelected(selectedContact))).size(), equalTo(selected.size()));
+    app.contact().allGroup();
+    ContactData selectedContact = before.iterator().next();
+    Contacts selectedall = app.contact().all().inSelectedGroup(selectedContact);
+    app.contact().addContactToGroup(selectedContact);
+    app.contact().selectGroup();
+    Contacts selected = app.contact().all().withAddedSelected(selectedContact);
 
-      verifyContactListInUi();
-    }
+    assertThat(((app.contact().all().withAddedSelected(selectedContact))).size(), equalTo(selectedall.size() + 1));
+
+    verifyContactListInUi();
   }
+}
 
 
