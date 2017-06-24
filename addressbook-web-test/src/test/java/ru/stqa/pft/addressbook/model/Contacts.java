@@ -49,4 +49,10 @@ public class Contacts extends ForwardingSet<ContactData> {
     selectedContacts.add(selectedContact);
     return selectedContacts;
   }
+
+  public Contacts withOutSelected(ContactData selectedContact) {
+    Contacts selectedContacts = new Contacts(this);
+    selectedContacts.remove(selectedContact);
+    return selectedContacts;
+  }
 }

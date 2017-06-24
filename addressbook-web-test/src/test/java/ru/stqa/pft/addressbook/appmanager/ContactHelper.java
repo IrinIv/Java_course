@@ -177,15 +177,27 @@ public class ContactHelper extends BaseHelper {
 
   public void addContactToGroup(ContactData contact) {
     selectContactById(contact.getId());
-    addSelectedContacts();
+    addSelectedContactToGroup();
     returnHomePage();
   }
 
-  private void addSelectedContacts() {
+  private void addSelectedContactToGroup() {
     click(By.name("add"));
     click(By.linkText("group page \"test3\""));
   }
 
 
+  public void deleteContactFromGroup(ContactData contact) {
+    WebElement element = wd.findElement(By.name("group"));
+    Select select = new Select(element);
+    select.selectByVisibleText("test3");
+    selectContactById(contact.getId());
+    deleteSelectedContactFromGroup();
+    returnHomePage();
+  }
+
+  private void deleteSelectedContactFromGroup() {
+    click(By.name("remove"));
+  }
 }
 
