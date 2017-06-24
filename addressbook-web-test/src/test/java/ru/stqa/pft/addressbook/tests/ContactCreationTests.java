@@ -91,16 +91,10 @@ public class ContactCreationTests extends TestBase {
     app.contact().homePage();
     Groups groups = app.db().groups();
     Contacts before = app.db().contacts();
-    ContactData newContact = new ContactData().withFirstname(contact.getFirstname())
-            .withLastname(contact.getLastname()).withAddress(contact.getAddress())
-            .withHomephone(contact.getHomephone()).withEmail(contact.getEmail())
-            .inGroup(groups.iterator().next());
     File photo = new File("src/test/resources/java.png");
     app.goTo().contactPage();
-    app.contact().create(newContact, true);
-
-    //app.contact().create((contact.withAllphones(ContactPhoneTests.mergePhones(contact))
-    //        .withAllemails(ContactPhoneTests.mergeEmails(contact))), true);
+    app.contact().create((contact.withAllphones(ContactPhoneTests.mergePhones(contact))
+            .withAllemails(ContactPhoneTests.mergeEmails(contact))), true);
     assertThat(app.contact().count(), equalTo(before.size() + 1));
     Contacts after = app.db().contacts();
     assertThat(after, equalTo

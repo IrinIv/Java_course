@@ -8,6 +8,7 @@ import org.openqa.selenium.support.ui.Select;
 import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.Contacts;
 
+import javax.lang.model.element.Element;
 import java.util.List;
 
 /**
@@ -68,7 +69,7 @@ public class ContactHelper extends BaseHelper {
     wd.findElements(By.name("selected[]")).get(index).click();
   }
 
-  private void selectContactById(int id) {
+  public void selectContactById(int id) {
     wd.findElement(By.cssSelector("input[value='" + id + "']")).click();
   }
 
@@ -173,4 +174,18 @@ public class ContactHelper extends BaseHelper {
             withEmail(email).withEmail2(email2).withEmail3(email3);
 
   }
+
+  public void addContactToGroup(ContactData contact) {
+    selectContactById(contact.getId());
+    addSelectedContacts();
+    returnHomePage();
+  }
+
+  private void addSelectedContacts() {
+    click(By.name("add"));
+    click(By.linkText("group page \"test3\""));
+  }
+
+
 }
+
