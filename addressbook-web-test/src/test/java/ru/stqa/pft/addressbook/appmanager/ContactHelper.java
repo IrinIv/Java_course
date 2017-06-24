@@ -8,7 +8,6 @@ import org.openqa.selenium.support.ui.Select;
 import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.Contacts;
 
-import javax.lang.model.element.Element;
 import java.util.List;
 
 /**
@@ -181,6 +180,7 @@ public class ContactHelper extends BaseHelper {
     returnHomePage();
   }
 
+
   private void addSelectedContactToGroup() {
     click(By.name("add"));
     click(By.linkText("group page \"test3\""));
@@ -202,5 +202,12 @@ public class ContactHelper extends BaseHelper {
     Select select = new Select(element);
     select.selectByVisibleText("test3");
   }
+
+  public void allGroup() {
+    WebElement element = wd.findElement(By.name("group"));
+    Select select = new Select(element);
+    select.selectByVisibleText("[all]");
+  }
+
 }
 
