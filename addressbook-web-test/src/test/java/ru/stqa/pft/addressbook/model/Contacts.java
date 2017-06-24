@@ -55,4 +55,11 @@ public class Contacts extends ForwardingSet<ContactData> {
     deletedContacts.remove(deletedContact);
     return deletedContacts;
   }
+
+  public Contacts inSelectedGroup(ContactData contact) {
+    Contacts contacts = new Contacts(this);
+    return contacts;
+  }
+
+
 }
