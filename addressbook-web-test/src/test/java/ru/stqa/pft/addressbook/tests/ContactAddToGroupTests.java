@@ -26,23 +26,6 @@ import static org.hamcrest.MatcherAssert.assertThat;
  */
 public class ContactAddToGroupTests extends TestBase {
 
-  @DataProvider
-  public Iterator<Object[]> validContactsFromJson() throws IOException {
-
-    try (BufferedReader reader = new BufferedReader(new FileReader(new File("src/test/resources/contacts.json")))) {
-      String json = "";
-      String line = reader.readLine();
-      while (line != null) {
-        json += line;
-        line = reader.readLine();
-      }
-      Gson gson = new Gson();
-      List<ContactData> contacts = gson.fromJson(json, new TypeToken<List<ContactData>>() {
-      }.getType());
-      return contacts.stream().map((c) -> new Object[]{c}).collect(Collectors.toList()).iterator();
-    }
-  }
-
     @BeforeMethod
     public void ensurePreconditions() {
       app.goTo().groupPage();
@@ -52,8 +35,8 @@ public class ContactAddToGroupTests extends TestBase {
       }
     }
 
-  @Test(dataProvider = "validContactsFromJson")
-  public void testContactAddToGroup(ContactData contact) {
+  @Test
+  public void testContactAddToGroup() {
 
       app.contact().homePage();
       Groups groups = app.db().groups();

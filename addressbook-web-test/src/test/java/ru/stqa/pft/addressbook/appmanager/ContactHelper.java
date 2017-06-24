@@ -188,9 +188,6 @@ public class ContactHelper extends BaseHelper {
 
 
   public void deleteContactFromGroup(ContactData contact) {
-    WebElement element = wd.findElement(By.name("group"));
-    Select select = new Select(element);
-    select.selectByVisibleText("test3");
     selectContactById(contact.getId());
     deleteSelectedContactFromGroup();
     returnHomePage();
@@ -198,6 +195,12 @@ public class ContactHelper extends BaseHelper {
 
   private void deleteSelectedContactFromGroup() {
     click(By.name("remove"));
+  }
+
+  public void selectGroup() {
+    WebElement element = wd.findElement(By.name("group"));
+    Select select = new Select(element);
+    select.selectByVisibleText("test3");
   }
 }
 

@@ -50,9 +50,9 @@ public class Contacts extends ForwardingSet<ContactData> {
     return selectedContacts;
   }
 
-  public Contacts withOutSelected(ContactData selectedContact) {
-    Contacts selectedContacts = new Contacts(this);
-    selectedContacts.remove(selectedContact);
-    return selectedContacts;
+  public Contacts withOutSelected(ContactData deletedContact) {
+    Contacts deletedContacts = new Contacts(this);
+    deletedContacts.remove(deletedContact);
+    return deletedContacts;
   }
 }
