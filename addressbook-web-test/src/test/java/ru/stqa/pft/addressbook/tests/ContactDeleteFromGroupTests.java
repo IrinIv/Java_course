@@ -38,7 +38,6 @@ public class ContactDeleteFromGroupTests extends TestBase {
     Groups allGroups = app.db().groups();
     Contacts before = app.db().contacts();
     for (ContactData deletedContact : before) {
-      if (deleted) break;
       Groups beforeDeletedGroups = deletedContact.getGroups();
       for (GroupData group : allGroups) {
         if (beforeDeletedGroups.contains(group)) {
@@ -48,16 +47,6 @@ public class ContactDeleteFromGroupTests extends TestBase {
         }
       }
     }
-
-    if (!deleted) {
-      app.goTo().groupPage();
-      app.group().create(new GroupData().withName("test2"));
-      Groups deletedGroups = app.db().groups();
-      GroupData group = deletedGroups.stream()
-              .max((g1, g2) -> Integer.compare(g1.getId(), g2.getId())).get();
-      ContactData contact = app.db().contacts().iterator().next();
-
     }
   }
-}
 

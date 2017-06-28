@@ -32,12 +32,12 @@ public class ContactAddToGroupTests extends TestBase {
 
   @Test
   public void testContactAddToGroup() {
+    int max = 0;
     boolean selected = false;
     app.contact().homePage();
     Groups allGroups = app.db().groups();
     Contacts before = app.db().contacts();
     for (ContactData selectedContact : before) {
-      if (selected) break;
       Groups beforeSelectedGroups = selectedContact.getGroups();
       for (GroupData group : allGroups) {
         if (!beforeSelectedGroups.contains(group)) {
@@ -48,14 +48,18 @@ public class ContactAddToGroupTests extends TestBase {
         }
       }
     }
-    if (!selected) {
-      Groups extraGroups = app.db().groups();
-      GroupData group = extraGroups.stream()
-              .max((g1, g2) -> Integer.compare(g1.getId(), g2.getId())).get();
-      ContactData contact = app.db().contacts().iterator().next();
+    Groups extraGroups = app.db().groups();
+    GroupData group = extraGroups.stream()
+            .max((g1, g2) -> Integer.compare(g1.getId(), g2.getId())).get();
+
+    //if (!selected) {
+     // Groups extraGroups = app.db().groups();
+     // GroupData group = extraGroups.stream()
+     //         .max((g1, g2) -> Integer.compare(g1.getId(), g2.getId())).get();
+      //ContactData contact = app.db().contacts().iterator().next();
     }
   }
-}
+
 
 
 
