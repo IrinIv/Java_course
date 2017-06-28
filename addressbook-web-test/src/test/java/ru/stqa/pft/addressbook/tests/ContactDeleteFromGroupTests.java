@@ -45,18 +45,23 @@ public class ContactDeleteFromGroupTests extends TestBase {
   }
   @Test
   public void testContactDeleteFromGroup() {
+
+    boolean deleted = false;
     app.contact().homePage();
-    Groups groups = app.db().groups();
+    Groups allGroups = app.db().groups();
     Contacts before = app.db().contacts();
-    app.contact().selectGroup();
-    Contacts after = app.contact().all();
-    ContactData deletedContact = after.iterator().next();
-    app.contact().deleteContactFromGroup(deletedContact);
-    Contacts selected = app.contact().all().inSelectedGroup(deletedContact);
-    Contacts withoutselected = app.contact().all().withOutSelected(deletedContact);
+    for(ContactData deletedContact : before)  {
+      if (deleted) break;
+      Groups beforeDeletedGroups = deletedContact.getGroups();
+      for(GroupData group : allGroups) {
+        if (beforeDeletedGroups.contains(group)) {
+          app.contact().deleteContactFromGroup(deletedContact, group);
+          deleted = true;
+          break;
+        }
+      }
 
-    assertThat(((app.contact().all().withOutSelected(deletedContact))).size(), equalTo(selected.size() - 1));
-
+    }
+  }
   }
 
-}

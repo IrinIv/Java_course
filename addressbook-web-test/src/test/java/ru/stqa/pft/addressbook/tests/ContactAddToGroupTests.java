@@ -31,7 +31,7 @@ public class ContactAddToGroupTests extends TestBase {
     app.goTo().groupPage();
     if (app.db().groups().size() == 0) {
       app.goTo().groupPage();
-      app.group().create(new GroupData().withName("test3"));
+      app.group().create(new GroupData().withName("test1"));
     }
     app.contact().homePage();
     Groups groups = app.db().groups();
@@ -46,24 +46,33 @@ public class ContactAddToGroupTests extends TestBase {
 
   @Test
   public void testContactAddToGroup() {
-
+  boolean selected = false;
     app.contact().homePage();
-    Groups groups = app.db().groups();
+    Groups allGroups = app.db().groups();
     Contacts before = app.db().contacts();
-    app.contact().selectGroup();
-    Contacts after = app.contact().all();
+    for(ContactData selectedContact : before)  {
+      if (selected) break;
+      Groups beforeSelectedGroups = selectedContact.getGroups();
+      for(GroupData group : allGroups) {
+        if (!beforeSelectedGroups.contains(group)) {
+          app.contact().select(selectedContact, group);
+          selected = true;
+          break;
+        }
+      }
+    }
+    if (!selected) {
+      app.goTo().groupPage();
+      app.group().create(new GroupData().withName("test2"));
+      Groups addedGroups = app.db().groups();
+      GroupData group = addedGroups.stream()
+              .max((g1, g2) -> Integer.compare(g1.getId(), g2.getId())).get();
+      ContactData contact = app.db().contacts().iterator().next();
+      app.contact().select(contact, group);
+    }
 
-    app.contact().allGroup();
-    ContactData selectedContact = before.iterator().next();
-    Contacts selectedall = app.contact().all().inSelectedGroup(selectedContact);
-    app.contact().addContactToGroup(selectedContact);
-    app.contact().selectGroup();
-    Contacts selected = app.contact().all().withAddedSelected(selectedContact);
-
-    assertThat(((app.contact().all().withAddedSelected(selectedContact))).size(), equalTo(selectedall.size() + 1));
-
-    verifyContactListInUi();
+    }
   }
-}
+
 
 

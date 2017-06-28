@@ -7,6 +7,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.Contacts;
+import ru.stqa.pft.addressbook.model.GroupData;
 
 import java.util.List;
 
@@ -174,40 +175,38 @@ public class ContactHelper extends BaseHelper {
 
   }
 
-  public void addContactToGroup(ContactData contact) {
+  public void deleteContactFromGroup(ContactData contact, GroupData group) {
+    selectGroup(group);
     selectContactById(contact.getId());
-    addSelectedContactToGroup();
+    deleteSelectedContactFromGroup(group);
     returnHomePage();
   }
 
-
-  private void addSelectedContactToGroup() {
-    click(By.name("add"));
-    click(By.linkText("group page \"test3\""));
+  private void selectGroup(GroupData group) {
+    WebElement element = wd.findElement(By.name("group"));
+    Select select = new Select(element);
+    select.selectByValue(String.valueOf(group.getId()));
   }
 
-
-  public void deleteContactFromGroup(ContactData contact) {
-    selectContactById(contact.getId());
-    deleteSelectedContactFromGroup();
-    returnHomePage();
-  }
-
-  private void deleteSelectedContactFromGroup() {
+  private void deleteSelectedContactFromGroup(GroupData group) {
     click(By.name("remove"));
   }
 
-  public void selectGroup() {
-    WebElement element = wd.findElement(By.name("group"));
-    Select select = new Select(element);
-    select.selectByVisibleText("test3");
+
+  public void select(ContactData contact, GroupData group) {
+    selectContactById(contact.getId());
+    addSelectedContactToGroup(group);
+    returnHomePage();
   }
 
-  public void allGroup() {
-    WebElement element = wd.findElement(By.name("group"));
+  private void addSelectedContactToGroup(GroupData group) {
+    WebElement element = wd.findElement(By.name("to_group"));
     Select select = new Select(element);
-    select.selectByVisibleText("[all]");
+    select.selectByValue(String.valueOf(group.getId()));
+    click(By.name("add"));
   }
+
+
 
 }
 
