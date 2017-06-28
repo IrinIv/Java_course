@@ -33,6 +33,15 @@ public class ContactDeleteFromGroupTests extends TestBase {
       app.goTo().groupPage();
       app.group().create(new GroupData().withName("test3"));
     }
+    app.contact().homePage();
+    Groups groups = app.db().groups();
+    if (app.db().contacts().size() == 0) {
+      app.goTo().contactPage();
+      app.contact().create(new ContactData().withFirstname("I").withLastname("V")
+              .withAddress("ad").withHomephone("1234").withMobilephone("1234")
+              .withWorkphone("2345").withAllphones("").withEmail("email@gmail.com")
+              .withEmail2("email").withEmail3("email").inGroup(groups.iterator().next()), true);
+    }
   }
   @Test
   public void testContactDeleteFromGroup() {
