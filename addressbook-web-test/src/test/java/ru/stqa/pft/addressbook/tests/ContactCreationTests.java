@@ -94,7 +94,8 @@ public class ContactCreationTests extends TestBase {
     File photo = new File("src/test/resources/java.png");
     app.goTo().contactPage();
     app.contact().create((contact.withAllphones(ContactPhoneTests.mergePhones(contact))
-            .withAllemails(ContactPhoneTests.mergeEmails(contact))), true);
+            .withAllemails(ContactPhoneTests.mergeEmails(contact))
+            .inGroup(groups.iterator().next())), true);
     assertThat(app.contact().count(), equalTo(before.size() + 1));
     Contacts after = app.db().contacts();
     assertThat(after, equalTo
