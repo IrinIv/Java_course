@@ -7,10 +7,14 @@ import ru.stqa.pft.addressbook.model.Contacts;
 import ru.stqa.pft.addressbook.model.GroupData;
 import ru.stqa.pft.addressbook.model.Groups;
 
+import java.util.Comparator;
+
 /**
  * Created by IrinaIv on 6/23/2017.
  */
 public class ContactAddToGroupTests extends TestBase {
+
+  
 
   @BeforeMethod
   public void ensurePreconditions() {
@@ -32,33 +36,23 @@ public class ContactAddToGroupTests extends TestBase {
 
   @Test
   public void testContactAddToGroup() {
-    int max = 0;
     boolean selected = false;
     app.contact().homePage();
     Groups allGroups = app.db().groups();
     Contacts before = app.db().contacts();
     for (ContactData selectedContact : before) {
       Groups beforeSelectedGroups = selectedContact.getGroups();
+      
       for (GroupData group : allGroups) {
         if (!beforeSelectedGroups.contains(group)) {
           app.contact().select(selectedContact, group);
           selected = true;
-          System.out.println(beforeSelectedGroups);
           break;
         }
       }
     }
-    Groups extraGroups = app.db().groups();
-    GroupData group = extraGroups.stream()
-            .max((g1, g2) -> Integer.compare(g1.getId(), g2.getId())).get();
-
-    //if (!selected) {
-     // Groups extraGroups = app.db().groups();
-     // GroupData group = extraGroups.stream()
-     //         .max((g1, g2) -> Integer.compare(g1.getId(), g2.getId())).get();
-      //ContactData contact = app.db().contacts().iterator().next();
-    }
   }
+}
 
 
 

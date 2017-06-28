@@ -32,34 +32,16 @@ public class Contacts extends ForwardingSet<ContactData> {
     return delegate;
   }
 
-  public Contacts withAdded (ContactData contact) {
+  public Contacts withAdded(ContactData contact) {
     Contacts contacts = new Contacts(this);
     contacts.add(contact);
     return contacts;
   }
 
-  public Contacts withOut (ContactData contact) {
+  public Contacts withOut(ContactData contact) {
     Contacts contacts = new Contacts(this);
     contacts.remove(contact);
     return contacts;
   }
-
-  public Contacts withAddedSelected(ContactData selectedContact) {
-    Contacts selectedContacts = new Contacts(this);
-    selectedContacts.add(selectedContact);
-    return selectedContacts;
-  }
-
-  public Contacts withOutSelected(ContactData deletedContact) {
-    Contacts deletedContacts = new Contacts(this);
-    deletedContacts.remove(deletedContact);
-    return deletedContacts;
-  }
-
-  public Contacts inSelectedGroup(ContactData contact) {
-    Contacts contacts = new Contacts(this);
-    return contacts;
-  }
-
 
 }
