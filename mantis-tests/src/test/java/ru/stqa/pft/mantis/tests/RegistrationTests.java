@@ -11,8 +11,6 @@ public class RegistrationTests extends TestBase{
   public void testRegistration() {
     app.registration().start("user1", "user1@gmail.com");
 
-
-
   }
 
 }
