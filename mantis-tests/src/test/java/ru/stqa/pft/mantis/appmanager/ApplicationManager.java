@@ -25,6 +25,8 @@ public class ApplicationManager {
   private FtpHelper ftp;
   private MailHelper mailHelper;
   private JamesHelper jamesHelper;
+  private ChangePasswordHelper changePasswordHelper;
+
 
 
   public ApplicationManager(String browser) {
@@ -81,6 +83,13 @@ public class ApplicationManager {
     return jamesHelper;
   }
 
+  public ChangePasswordHelper changePass() {
+    if (changePasswordHelper == null) {
+      changePasswordHelper = new ChangePasswordHelper(this);
+    }
+    return changePasswordHelper;
+  }
+
   public WebDriver getDriver() {
     if (wd == null) {
       if (browser.equals(BrowserType.FIREFOX)) {
@@ -95,4 +104,5 @@ public class ApplicationManager {
     }
     return wd;
   }
+
 }
