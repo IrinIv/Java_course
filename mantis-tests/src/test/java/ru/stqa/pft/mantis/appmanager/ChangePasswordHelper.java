@@ -47,19 +47,7 @@ public class ChangePasswordHelper extends BaseHelper {
     type(By.name("password"), password);
     click(By.cssSelector("input[value='Login']"));
   }
-
-
-  public Users all() {
-    List<WebElement> elements = wd.findElements(By.xpath("//table[@class='width100'][2]"));
-    for (WebElement element : elements) {
-      int id = Integer.parseInt(element.findElement(By.tagName("a")).getAttribute("id"));
-      String username = element.findElement(By.cssSelector("tr:nth-child(n) > td:nth-child(1)")).getText();
-      String email = element.findElement(By.cssSelector("tr:nth-child(n) > td:nth-child(3)")).getText();
-    }
-    return new Users();
-  }
-
-
+  
 }
 
 

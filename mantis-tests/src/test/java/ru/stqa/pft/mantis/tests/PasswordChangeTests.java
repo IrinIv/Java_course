@@ -21,16 +21,15 @@ public class PasswordChangeTests extends TestBase {
 
   @Test
   public void testPasswordChange() throws IOException, MessagingException {
-    app.changePass().login("administrator", "root");
+    app.changePass().login(app.getProperty("web.adminLogin"), app.getProperty("web.adminPassword"));
     app.changePass().goToManageUsers();
     app.changePass().selectUserById( 6);
     app.changePass().resetPassword();
     List<MailMessage> mailMessages = app.mail().waitForMail(1, 10000);
-    //String user = String.format("user%s");
-    String email = String.format("user1498806668318@gmail.com");;
+    String email = String.format(app.getProperty("web.email"));;
     String confirmationLink = findConfirmationLink(mailMessages, email);
-    app.changePass().confirmReset(confirmationLink, "12345");
-    app.changePass().loginUser("user1498806668318", "12345" );
+    app.changePass().confirmReset(confirmationLink, app.getProperty("web.userPassword"));
+    app.changePass().loginUser(app.getProperty("web.username"), app.getProperty("web.userPassword") );
   }
 
   private String findConfirmationLink(List<MailMessage> mailMessages, String email) {
@@ -43,8 +42,5 @@ public class PasswordChangeTests extends TestBase {
   public void stopMailServer() {
     app.mail().stop();
   }
-
-
-
 
 }
