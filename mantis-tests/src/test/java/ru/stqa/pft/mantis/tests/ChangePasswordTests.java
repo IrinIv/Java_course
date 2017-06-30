@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * Created by IrinaIv on 6/30/2017.
  */
-public class PasswordChangeTests extends TestBase {
+public class ChangePasswordTests extends TestBase {
   @BeforeMethod
   public void startMailServer() {
     app.mail().start();

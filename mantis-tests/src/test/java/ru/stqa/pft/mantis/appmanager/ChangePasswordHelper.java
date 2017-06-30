@@ -47,7 +47,7 @@ public class ChangePasswordHelper extends BaseHelper {
     type(By.name("password"), password);
     click(By.cssSelector("input[value='Login']"));
   }
-  
+
 }
 
 
