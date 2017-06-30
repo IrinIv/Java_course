@@ -1,11 +1,9 @@
 package ru.stqa.pft.mantis.appmanager;
 
 import org.apache.commons.net.telnet.TelnetClient;
-import org.subethamail.wiser.WiserMessage;
 import ru.stqa.pft.mantis.model.MailMessage;
 
 import javax.mail.*;
-import javax.mail.internet.MimeMessage;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintStream;
@@ -70,19 +68,19 @@ public class JamesHelper {
     }
 
     //First time
-    readUntil("Login id: ");
-    write(" ");
-    readUntil("Password: ");
-    write(" ");
+    readUntil("Login id:");
+    write("");
+    readUntil("Password:");
+    write("");
 
     //Second time
-    readUntil("Login id: ");
-    write(" ");
-    readUntil("Password: ");
-    write(" ");
+    readUntil("Login id:");
+    write(login);
+    readUntil("Password:");
+    write(password);
 
     //Read welcome message
-    readUntil("Welcome " + login + ". HELP for a list of commands");
+    readUntil("Welcome "+login+". HELP for a list of commands");
   }
 
   private String readUntil(String pattern) {
