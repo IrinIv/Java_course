@@ -36,7 +36,6 @@ public class ContactAddToGroupTests extends TestBase {
 
   @Test
   public void testContactAddToGroup() {
-    boolean selected = false;
     app.contact().homePage();
     Groups allGroups = app.db().groups();
     Contacts before = app.db().contacts();
@@ -46,12 +45,17 @@ public class ContactAddToGroupTests extends TestBase {
       for (GroupData group : allGroups) {
         if (!beforeSelectedGroups.contains(group)) {
           app.contact().select(selectedContact, group);
-          selected = true;
-          break;
+          }
+        if (beforeSelectedGroups.size() == app.db().groups().size()){
+          app.goTo().groupPage();
+          app.group().create(new GroupData().withName("test4"));
+          app.contact().homePage();
+          app.contact().select(selectedContact, group);
         }
       }
     }
   }
+  
 }
 
 
