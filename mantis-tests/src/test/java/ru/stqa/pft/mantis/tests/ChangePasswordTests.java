@@ -10,6 +10,8 @@ import javax.mail.MessagingException;
 import java.io.IOException;
 import java.util.List;
 
+import static org.testng.Assert.assertTrue;
+
 /**
  * Created by IrinaIv on 6/30/2017.
  */
@@ -30,6 +32,7 @@ public class ChangePasswordTests extends TestBase {
     String confirmationLink = findConfirmationLink(mailMessages, email);
     app.changePass().confirmReset(confirmationLink, app.getProperty("web.userPassword"));
     app.changePass().loginUser(app.getProperty("web.username"), app.getProperty("web.userPassword") );
+    assertTrue(app.newSession().login(app.getProperty("web.username"), app.getProperty("web.userPassword") ));
   }
 
   private String findConfirmationLink(List<MailMessage> mailMessages, String email) {
