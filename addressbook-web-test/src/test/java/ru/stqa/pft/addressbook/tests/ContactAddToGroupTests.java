@@ -1,5 +1,6 @@
 package ru.stqa.pft.addressbook.tests;
 
+import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ContactData;
@@ -8,6 +9,7 @@ import ru.stqa.pft.addressbook.model.GroupData;
 import ru.stqa.pft.addressbook.model.Groups;
 
 import java.util.Comparator;
+import java.util.List;
 
 /**
  * Created by IrinaIv on 6/23/2017.
@@ -41,7 +43,7 @@ public class ContactAddToGroupTests extends TestBase {
     Contacts before = app.db().contacts();
     for (ContactData selectedContact : before) {
       Groups beforeSelectedGroups = selectedContact.getGroups();
-      
+
       for (GroupData group : allGroups) {
         if (!beforeSelectedGroups.contains(group)) {
           app.contact().select(selectedContact, group);
@@ -54,6 +56,8 @@ public class ContactAddToGroupTests extends TestBase {
         }
       }
     }
+    Contacts after = app.db().contacts();
+
   }
   
 }
