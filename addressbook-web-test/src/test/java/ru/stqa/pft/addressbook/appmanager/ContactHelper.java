@@ -206,7 +206,10 @@ public class ContactHelper extends BaseHelper {
     click(By.name("add"));
   }
 
-
-
+  public void goToHomePageWithAllGroups(ContactData contact, GroupData group) {
+    WebElement element = wd.findElement(By.name("group"));
+    Select select = new Select(element);
+    select.selectByVisibleText("[all]");
+  }
 }
 
