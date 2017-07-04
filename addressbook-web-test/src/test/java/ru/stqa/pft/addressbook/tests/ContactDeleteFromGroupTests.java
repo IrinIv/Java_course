@@ -1,5 +1,6 @@
 package ru.stqa.pft.addressbook.tests;
 
+import org.openqa.selenium.support.ui.Select;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ContactData;
@@ -32,8 +33,6 @@ public class ContactDeleteFromGroupTests extends TestBase {
 
   @Test
   public void testContactDeleteFromGroup() {
-
-    boolean deleted = false;
     app.contact().homePage();
     Groups allGroups = app.db().groups();
     Contacts before = app.db().contacts();
@@ -42,11 +41,16 @@ public class ContactDeleteFromGroupTests extends TestBase {
       for (GroupData group : allGroups) {
         if (beforeDeletedGroups.contains(group)) {
           app.contact().deleteContactFromGroup(deletedContact, group);
-          deleted = true;
-          break;
         }
+        if (!app.db().contacts().contains(group)) {
+          app.contact().select(deletedContact, group);
+
+        }
+        app.contact().deleteContactFromGroup(deletedContact, group);
+        app.contact().goToHomePageWithAllGroups(deletedContact, group);
       }
     }
-    }
   }
+}
+
 
