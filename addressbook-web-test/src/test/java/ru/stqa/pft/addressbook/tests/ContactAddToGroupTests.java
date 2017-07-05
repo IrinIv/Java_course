@@ -9,14 +9,18 @@ import ru.stqa.pft.addressbook.model.GroupData;
 import ru.stqa.pft.addressbook.model.Groups;
 
 import java.util.Comparator;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
 
 /**
  * Created by IrinaIv on 6/23/2017.
  */
 public class ContactAddToGroupTests extends TestBase {
 
-  
 
   @BeforeMethod
   public void ensurePreconditions() {
@@ -39,28 +43,31 @@ public class ContactAddToGroupTests extends TestBase {
   @Test
   public void testContactAddToGroup() {
     app.contact().homePage();
-    Groups allGroups = app.db().groups();
+    Set<GroupData> contactGroups;
     Contacts before = app.db().contacts();
-    for (ContactData selectedContact : before) {
-      Groups beforeSelectedGroups = selectedContact.getGroups();
+    Iterator<ContactData> idG = before.iterator();
+    for (int i = 0; i < app.db().contacts().size(); i++) {
+      ContactData selectedContact = idG.next();
+      Set<GroupData> allGroups = app.db().groups();
+      contactGroups = selectedContact.getGroups();
+      allGroups.removeAll(contactGroups);
 
-      for (GroupData group : allGroups) {
-        if (!beforeSelectedGroups.contains(group)) {
-          app.contact().select(selectedContact, group);
-          }
-        if (beforeSelectedGroups.size() == app.db().groups().size()){
-          app.goTo().groupPage();
-          app.group().create(new GroupData().withName("test4"));
-          app.contact().homePage();
-          app.contact().select(selectedContact, group);
-        }
+      if (allGroups.size() > 0) {
+        app.contact().addSelectedContactToGroup(selectedContact, allGroups);
+      }
+        Contacts after = app.db().contacts();
+        assertThat(after, equalTo(before.withOut(selectedContact).withAdded(selectedContact)));
+
       }
     }
-    Contacts after = app.db().contacts();
-
   }
-  
-}
+
+
+
+
+
+
+
 
 
 

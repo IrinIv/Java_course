@@ -10,6 +10,7 @@ import ru.stqa.pft.addressbook.model.Contacts;
 import ru.stqa.pft.addressbook.model.GroupData;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by IrinaIv on 5/18/2017.
@@ -178,7 +179,7 @@ public class ContactHelper extends BaseHelper {
   public void deleteContactFromGroup(ContactData contact, GroupData group) {
     selectGroup(group);
     selectContactById(contact.getId());
-    deleteSelectedContactFromGroup(group);
+    click(By.name("remove"));
     returnHomePage();
   }
 
@@ -188,23 +189,15 @@ public class ContactHelper extends BaseHelper {
     select.selectByValue(String.valueOf(group.getId()));
   }
 
-  private void deleteSelectedContactFromGroup(GroupData group) {
-    click(By.name("remove"));
-  }
-
-
-  public void select(ContactData contact, GroupData group) {
+  public void addSelectedContactToGroup(ContactData contact, Set<GroupData> allGroups) {
     selectContactById(contact.getId());
-    addSelectedContactToGroup(group);
+    WebElement element = wd.findElement(By.name("to_group"));
+    Select select = new Select(element);
+    select.selectByVisibleText(allGroups.iterator().next().getName());
+    click(By.name("add"));
     returnHomePage();
   }
 
-  private void addSelectedContactToGroup(GroupData group) {
-    WebElement element = wd.findElement(By.name("to_group"));
-    Select select = new Select(element);
-    select.selectByValue(String.valueOf(group.getId()));
-    click(By.name("add"));
-  }
 
   public void goToHomePageWithAllGroups(ContactData contact, GroupData group) {
     WebElement element = wd.findElement(By.name("group"));
