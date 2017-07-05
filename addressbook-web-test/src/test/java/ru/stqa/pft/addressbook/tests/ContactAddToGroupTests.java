@@ -47,6 +47,7 @@ public class ContactAddToGroupTests extends TestBase {
     Contacts before = app.db().contacts();
     Iterator<ContactData> idG = before.iterator();
     for (int i = 0; i < app.db().contacts().size(); i++) {
+      //for (ContactData groups  : before) {
       ContactData selectedContact = idG.next();
       Set<GroupData> allGroups = app.db().groups();
       contactGroups = selectedContact.getGroups();
