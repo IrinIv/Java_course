@@ -8,6 +8,12 @@ import ru.stqa.pft.addressbook.model.Contacts;
 import ru.stqa.pft.addressbook.model.GroupData;
 import ru.stqa.pft.addressbook.model.Groups;
 
+import java.util.Iterator;
+import java.util.Set;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
+
 /**
  * Created by IrinaIv on 6/23/2017.
  */
@@ -34,23 +40,27 @@ public class ContactDeleteFromGroupTests extends TestBase {
   @Test
   public void testContactDeleteFromGroup() {
     app.contact().homePage();
-    Groups allGroups = app.db().groups();
+    Set<GroupData> contactGroups;
     Contacts before = app.db().contacts();
-    for (ContactData deletedContact : before) {
-      Groups beforeDeletedGroups = deletedContact.getGroups();
-      for (GroupData group : allGroups) {
-        if (beforeDeletedGroups.contains(group)) {
-          app.contact().deleteContactFromGroup(deletedContact, group);
-        }
-        if (!app.db().contacts().contains(group)) {
-          app.contact().select(deletedContact, group);
+    Iterator<ContactData> idG = before.iterator();
+    for (int i = 0; i < app.db().contacts().size(); i++) {
+      ContactData selectedContact = idG.next();
+      Set<GroupData> allGroups = app.db().groups();
+      contactGroups = selectedContact.getGroups();
+      if (contactGroups.size() == 0) {
+        app.contact().goToHomePageWithAllGroups(selectedContact, allGroups);
+        app.contact().addSelectedContactToGroup(selectedContact, allGroups);
+        app.contact().deleteContactFromGroup(selectedContact, allGroups);}
+      if (contactGroups.size() > 0) {
+        app.contact().deleteContactFromGroup(selectedContact, allGroups);
+      }
+      Contacts after = app.db().contacts();
+      assertThat(after, equalTo(before.withOut(selectedContact).withAdded(selectedContact)));
 
-        }
-        app.contact().deleteContactFromGroup(deletedContact, group);
-        app.contact().goToHomePageWithAllGroups(deletedContact, group);
+
       }
     }
   }
-}
+
 
 

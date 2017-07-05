@@ -176,18 +176,15 @@ public class ContactHelper extends BaseHelper {
 
   }
 
-  public void deleteContactFromGroup(ContactData contact, GroupData group) {
-    selectGroup(group);
+  public void deleteContactFromGroup(ContactData contact, Set<GroupData> allGroups) {
+    WebElement element = wd.findElement(By.name("group"));
+    Select select = new Select(element);
+    select.selectByVisibleText(allGroups.iterator().next().getName());
     selectContactById(contact.getId());
     click(By.name("remove"));
     returnHomePage();
   }
 
-  private void selectGroup(GroupData group) {
-    WebElement element = wd.findElement(By.name("group"));
-    Select select = new Select(element);
-    select.selectByValue(String.valueOf(group.getId()));
-  }
 
   public void addSelectedContactToGroup(ContactData contact, Set<GroupData> allGroups) {
     selectContactById(contact.getId());
@@ -199,7 +196,7 @@ public class ContactHelper extends BaseHelper {
   }
 
 
-  public void goToHomePageWithAllGroups(ContactData contact, GroupData group) {
+  public void goToHomePageWithAllGroups(ContactData contact, Set<GroupData> allGroups) {
     WebElement element = wd.findElement(By.name("group"));
     Select select = new Select(element);
     select.selectByVisibleText("[all]");
