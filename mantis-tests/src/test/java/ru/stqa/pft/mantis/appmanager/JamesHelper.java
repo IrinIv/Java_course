@@ -31,25 +31,25 @@ public class JamesHelper {
     mailSession = Session.getDefaultInstance(System.getProperties());
   }
 
-  public boolean doesUserExist(String name) {
+  public boolean doesUserExist(String user) {
     initTelnetSession();
-    write("verify " + name);
+    write("verify " + user);
     String result = readUntil("exist");
     closeTelnetSession();
-    return result.trim().equals("User " + name + " exist");
+    return result.trim().equals("User " + user + " exist");
   }
 
-  public void createUser(String name, String password) {
+  public void createUser(String user, String password) {
     initTelnetSession();
-    write("adduser " + name + " " + password);
-    String result = readUntil("User " + name + " added");
+    write("adduser " + user + " " + password);
+    String result = readUntil("User " + user + " added");
     closeTelnetSession();
   }
 
-  public void deleteUser(String name) {
+  public void deleteUser(String user) {
     initTelnetSession();
-    write("deluser " + name);
-    String result = readUntil("User " + name + " deleted");
+    write("deluser " + user);
+    String result = readUntil("User " + user + " deleted");
     closeTelnetSession();
   }
 
@@ -120,26 +120,26 @@ public class JamesHelper {
     write("quit");
   }
 
-  public void drainEmail(String username, String password) throws MessagingException {
-    Folder inbox = openInbox(username, password);
+  public void drainEmail(String user, String password) throws MessagingException {
+    Folder inbox = openInbox(user, password);
     for (Message message : inbox.getMessages()) {
       message.setFlag(Flags.Flag.DELETED, true);
     }
     closeFolder(inbox);
   }
 
-  private Folder openInbox(String username, String password) throws MessagingException {
+  private Folder openInbox(String user, String password) throws MessagingException {
     store = mailSession.getStore("pop3");
-    store.connect(mailserver, username, password);
+    store.connect(mailserver, user, password);
     Folder folder = store.getDefaultFolder().getFolder("INBOX");
     folder.open(Folder.READ_WRITE);
     return folder;
   }
 
-  public List<MailMessage> waitForMail(String username, String password, long timeout) throws MessagingException, IOException  {
+  public List<MailMessage> waitForMail(String user, String password, long timeout) throws MessagingException, IOException  {
     long now = System.currentTimeMillis();
     while (System.currentTimeMillis() < now + timeout) {
-      List<MailMessage>allMail = getAllMail(username, password);
+      List<MailMessage>allMail = getAllMail(user, password);
       if(allMail.size() > 0) {
         return allMail;
       }
@@ -152,8 +152,8 @@ public class JamesHelper {
     throw new Error("No mail :(");
   }
 
-  private List<MailMessage> getAllMail(String username, String password) throws MessagingException {
-    Folder inbox = openInbox(username, password);
+  private List<MailMessage> getAllMail(String user, String password) throws MessagingException {
+    Folder inbox = openInbox(user, password);
     List<MailMessage> messages = Arrays.asList(inbox.getMessages()).stream().map(m -> toModelMail(m)).collect(Collectors.toList());
     closeFolder(inbox);
     return messages;
