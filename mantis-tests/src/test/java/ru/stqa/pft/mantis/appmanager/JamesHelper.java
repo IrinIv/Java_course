@@ -132,7 +132,7 @@ public class JamesHelper {
     store = mailSession.getStore("pop3");
     store.connect(mailserver, username, password);
     Folder folder = store.getDefaultFolder().getFolder("INBOX");
-    folder.open(Folder.READ_WRITE);
+    folder.open(Folder.READ_ONLY);
     return folder;
   }
 
