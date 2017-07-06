@@ -1,10 +1,6 @@
 package ru.stqa.pft.mantis.appmanager;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
-import ru.stqa.pft.mantis.model.Users;
-
-import java.util.List;
 
 /**
  * Created by IrinaIv on 6/30/2017.
@@ -23,7 +19,7 @@ public class ChangePasswordHelper extends BaseHelper {
   }
 
   public void goToManageUsers() {
-    click(By.xpath("//a[contains(.,'Manage Users')]"));
+    click(By.xpath("//a[contains(.,'Manage Project')]"));
   }
 
   public void selectUserById(int id) {
