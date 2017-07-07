@@ -20,10 +20,10 @@ public class RegistrationWithJamesTests extends TestBase {
     long now = System.currentTimeMillis();
     String user = String.format("user%s", now);
     String password = "password";
-    String email = String.format("user%s@localhost", now);
+    String email = String.format("user%s@127.0.0.1", now);
     app.james().createUser(user, password);
     app.registration().start(user, email);
-    List<MailMessage> mailMessages = app.james().waitForMail(user, password, 60000);
+    List<MailMessage> mailMessages = app.james().waitForMail(user, password, 120000);
     String confirmationLink = findConfirmationLink(mailMessages, email);
     app.registration().finish(confirmationLink, password);
     assertTrue(app.newSession().login(user, password));
