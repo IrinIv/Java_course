@@ -36,7 +36,8 @@ public class Issue {
     return this;
   }
 
-  public Project getProject() {
+  public Project getProject()
+  {
     return project;
   }
 

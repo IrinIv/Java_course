@@ -36,6 +36,7 @@ public class SoapHelper {
     MantisConnectPortType mc = getMantisConnect();
     mc.mc_projects_get_user_accessible("administrator", "root");
     IssueData existedIssueData = mc.mc_issue_get("administrator", "root", BigInteger.valueOf(3));
+    boolean isFixedIssue = mc.mc_issue_checkin("administrator", "root", BigInteger.valueOf(3), "", true);
     return new Issue().withId(existedIssueData.getId().intValue())
             .withSummary(existedIssueData.getSummary()).withDescription(existedIssueData.getDescription())
             .withProject(new Project().withId(existedIssueData.getProject().getId().intValue())

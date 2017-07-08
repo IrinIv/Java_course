@@ -8,6 +8,8 @@ import ru.stqa.pft.mantis.appmanager.ApplicationManager;
 
 import java.io.File;
 import java.io.IOException;
+import java.math.BigInteger;
+import java.rmi.RemoteException;
 
 /**
  * Created by IrinaIv on 5/18/2017.
@@ -17,6 +19,9 @@ public class TestBase {
 
   protected static final ApplicationManager app
           = new ApplicationManager(System.getProperty("browser", BrowserType.CHROME));
+  private boolean isFixedIssue;
+
+
 
   @BeforeSuite
   public void setUp() throws Exception {
@@ -34,15 +39,17 @@ public class TestBase {
     return app;
   }
 
-  boolean isIssueOpen(int issueId) {
+  boolean isIssueOpen(int issueId) throws RemoteException {
+    if(isFixedIssue == false) {
    return true;
   }
+  return false;
+  }
 
-  public void skipIfNotFixed(int issueId) {
+  public void skipIfNotFixed(int issueId) throws RemoteException {
     if (isIssueOpen(issueId)) {
       throw new SkipException("Ignored because of issue " + issueId);
     }
   }
-
 
 }
