@@ -30,7 +30,16 @@ public class SoapHelper {
     return Arrays.asList(projects).stream()
             .map((p) -> new Project().withId(p.getId().intValue()).withName(p.getName()))
             .collect(Collectors.toSet());
+  }
 
+  public Issue getIssue(Issue issue) throws MalformedURLException, ServiceException, RemoteException {
+    MantisConnectPortType mc = getMantisConnect();
+    mc.mc_projects_get_user_accessible("administrator", "root");
+    IssueData existedIssueData = mc.mc_issue_get("administrator", "root", BigInteger.valueOf(3));
+    return new Issue().withId(existedIssueData.getId().intValue())
+            .withSummary(existedIssueData.getSummary()).withDescription(existedIssueData.getDescription())
+            .withProject(new Project().withId(existedIssueData.getProject().getId().intValue())
+                    .withName(existedIssueData.getProject().getName()));
   }
 
   private MantisConnectPortType getMantisConnect() throws ServiceException, MalformedURLException {
@@ -54,19 +63,6 @@ public class SoapHelper {
                     .withName(createdIssueData.getProject().getName()));
   }
 
-  public Issue getIssue(Issue issue) throws MalformedURLException, ServiceException, RemoteException {
-    MantisConnectPortType mc = getMantisConnect();
-    String[] categories = mc.mc_project_get_categories("administrator", "root", BigInteger.valueOf(issue.getProject().getId()));
-    IssueData issueData = new IssueData();
-    issueData.setSummary(issue.getSummary());
-    issueData.setDescription((issue.getDescription()));
-    issueData.setProject(new ObjectRef(BigInteger.valueOf(issue.getProject().getId()), issue.getProject().getName()));
-    issueData.setCategory(categories[0]);
-    IssueData existedIssueData = mc.mc_issue_get("administrator", "root", BigInteger.valueOf(issue.getId()));
-    return new Issue().withId(existedIssueData.getId().intValue())
-            .withSummary(existedIssueData.getSummary()).withDescription(existedIssueData.getDescription())
-            .withProject(new Project().withId(existedIssueData.getProject().getId().intValue())
-                    .withName(existedIssueData.getProject().getName()));
-  }
+
 }
 
