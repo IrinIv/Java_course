@@ -25,4 +25,12 @@ public class Project {
 
   private int id;
   private String name;
+
+  @Override
+  public String toString() {
+    return "Project{" +
+            "id=" + id +
+            ", name='" + name + '\'' +
+            '}';
+  }
 }
