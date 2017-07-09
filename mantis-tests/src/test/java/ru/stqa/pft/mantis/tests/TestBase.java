@@ -1,12 +1,11 @@
 package ru.stqa.pft.mantis.tests;
 
-import biz.futureware.mantis.rpc.soap.client.IssueData;
 import biz.futureware.mantis.rpc.soap.client.MantisConnectPortType;
-import biz.futureware.mantis.rpc.soap.client.ObjectRef;
 import org.openqa.selenium.remote.BrowserType;
 import org.testng.SkipException;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.BeforeTest;
 import ru.stqa.pft.mantis.appmanager.ApplicationManager;
 
 import javax.xml.rpc.ServiceException;
@@ -54,6 +53,7 @@ public class TestBase {
   return false;
   }
 
+  @BeforeTest
   public void skipIfNotFixed(int issueId) throws RemoteException, MalformedURLException, ServiceException {
     if (isIssueOpen(issueId)) {
       throw new SkipException("Ignored because of issue " + issueId);
