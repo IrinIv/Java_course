@@ -39,6 +39,7 @@ public class SoapTests extends TestBase{
     Issue issue = new Issue().withSummary("Test issue")
             .withDescription("Test issue description").withProject(projects.iterator().next());
     Issue existed = app.soap().getIssue(issue);
+
     System.out.println(existed);
 
   }
