@@ -39,8 +39,13 @@ public class SoapTests extends TestBase{
     Issue issue = new Issue().withSummary("Test issue")
             .withDescription("Test issue description").withProject(projects.iterator().next());
     Issue existed = app.soap().getIssue(issue);
-
     System.out.println(existed);
+  }
+
+  @Test
+  public void testGetIssueStatus() throws RemoteException, ServiceException, MalformedURLException {
+    String status = app.soap().getIssueStatus(3);
+    System.out.println(status);
 
   }
 
