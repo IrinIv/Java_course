@@ -9,6 +9,7 @@ import org.apache.http.client.fluent.Request;
 import org.apache.http.message.BasicNameValuePair;
 
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.util.Set;
 
 /**
@@ -26,7 +27,9 @@ public class RestHelper {
             .returnContent().asString();
     JsonElement parsed = new JsonParser().parse(json);
     JsonElement issues = parsed.getAsJsonObject().get("issues");
-    return new Gson().fromJson(issues, new TypeToken<Set<Issue>>() {}.getType());
+    //JsonElement state = parsed.getAsJsonObject().get("state_name");
+
+    return new Gson().fromJson(issues, (Type) new TypeToken<Set<Issue>>() {}.getType());
   }
 
   public int createIssue(Issue newIssue) throws IOException {
@@ -38,9 +41,16 @@ public class RestHelper {
     return parsed.getAsJsonObject().get("issue_id").getAsInt();
   }
 
-  private Executor getExecutor() {
+  public Executor getExecutor() {
     return Executor.newInstance().auth("LSGjeU4yP1X493ud1hNniA==", "");
+  }
 
+  public Set<Issue> getIssueStatus() throws IOException {
+    String json = getExecutor().execute(Request.Get("http://demo.bugify.com/api/filters/1/issues.json"))
+            .returnContent().asString();
+    JsonElement parsed = new JsonParser().parse(json);
+    JsonElement issues = parsed.getAsJsonObject().get("issues");
 
+    return new Gson().fromJson(issues, (Type) new TypeToken<Set<Issue>>() {}.getType());
   }
 }

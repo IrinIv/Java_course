@@ -29,13 +29,28 @@ public class RestTests extends TestBase {
     assertEquals(newIssues, oldIssues);
   }
 
-  
+  @Test
+  public void testGetIssueId() throws IOException {
+    Set<Issue> allIssues = app.rest().getIssues();
+    for (Issue issue : allIssues) {
+      System.out.println(issue.getId());
+    }
+  }
+
+   @Test
+   public void testGetAllIssue() throws IOException {
+      Set<Issue> issues = app.rest().getIssues();
+      for (Issue issue : issues) {
+        System.out.println(issue.toString());
+    }
+  }
+
+    @Test
+  public void testGetIssueStatus() throws IOException {
+      Set<Issue> issues = app.rest().getIssueStatus();
+
+    }
 
 
+  }
 
-
-
-
-
-
-}

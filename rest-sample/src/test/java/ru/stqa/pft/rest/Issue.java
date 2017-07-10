@@ -17,6 +17,15 @@ public class Issue {
     return this;
   }
 
+  @Override
+  public String toString() {
+    return "Issue{" +
+            "id=" + id +
+            ", subject='" + subject + '\'' +
+            ", description='" + description + '\'' +
+            '}';
+  }
+
   public String getSubject() {
     return subject;
   }
