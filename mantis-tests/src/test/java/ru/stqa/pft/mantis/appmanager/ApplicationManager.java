@@ -26,7 +26,6 @@ public class ApplicationManager {
   private MailHelper mailHelper;
   private JamesHelper jamesHelper;
   private ChangePasswordHelper changePasswordHelper;
-  private SoapHelper soap;
   private SoapHelper soapHelper;
 
 
