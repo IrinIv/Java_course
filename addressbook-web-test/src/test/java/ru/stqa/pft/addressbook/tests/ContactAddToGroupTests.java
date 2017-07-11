@@ -56,6 +56,10 @@ public class ContactAddToGroupTests extends TestBase {
       if (allGroups.size() > 0) {
         app.contact().addSelectedContactToGroup(selectedContact, allGroups);
       }
+      if (contactGroups.size() == allGroups.size() ) {
+        app.goTo().groupPage();
+        app.group().create(new GroupData().withName("test4"));
+      }
         Contacts after = app.db().contacts();
         assertThat(after, equalTo(before.withOut(selectedContact).withAdded(selectedContact)));
 

@@ -54,9 +54,16 @@ public class ContactDeleteFromGroupTests extends TestBase {
       if (contactGroups.size() > 0) {
         app.contact().deleteContactFromGroup(selectedContact, allGroups);
       }
+      if (contactGroups.size() == allGroups.size() ) {
+        app.goTo().groupPage();
+        app.group().create(new GroupData().withName("test4"));
+        app.contact().homePage();
+        app.contact().goToHomePageWithAllGroups(selectedContact, allGroups);
+        app.contact().addSelectedContactToGroup(selectedContact, allGroups);
+        app.contact().deleteContactFromGroup(selectedContact, allGroups);
+      }
       Contacts after = app.db().contacts();
       assertThat(after, equalTo(before.withOut(selectedContact).withAdded(selectedContact)));
-
 
       }
     }
