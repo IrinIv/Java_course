@@ -17,6 +17,8 @@ import java.util.Set;
  */
 public class RestHelper {
   private ApplicationManager app;
+
+
   public RestHelper(ApplicationManager app) {
     this.app = app;
   }
@@ -27,8 +29,6 @@ public class RestHelper {
             .returnContent().asString();
     JsonElement parsed = new JsonParser().parse(json);
     JsonElement issues = parsed.getAsJsonObject().get("issues");
-    //JsonElement state = parsed.getAsJsonObject().get("state_name");
-
     return new Gson().fromJson(issues, (Type) new TypeToken<Set<Issue>>() {}.getType());
   }
 
@@ -45,12 +45,12 @@ public class RestHelper {
     return Executor.newInstance().auth("LSGjeU4yP1X493ud1hNniA==", "");
   }
 
-  public Set<Issue> getIssueStatus() throws IOException {
-    String json = getExecutor().execute(Request.Get("http://demo.bugify.com/api/filters/1/issues.json"))
+  public String getIssueStatus(int issueId) throws IOException {
+
+    String json = getExecutor().execute(Request.Get("http://demo.bugify.com/api/issues/" + issueId + ".json"))
             .returnContent().asString();
     JsonElement parsed = new JsonParser().parse(json);
-    JsonElement issues = parsed.getAsJsonObject().get("issues");
+    return parsed.getAsJsonObject().get("state_name").getAsString();
 
-    return new Gson().fromJson(issues, (Type) new TypeToken<Set<Issue>>() {}.getType());
   }
 }
