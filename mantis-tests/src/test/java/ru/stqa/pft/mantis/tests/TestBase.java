@@ -6,6 +6,7 @@ import org.testng.SkipException;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Test;
 import ru.stqa.pft.mantis.appmanager.ApplicationManager;
 
 import javax.xml.rpc.ServiceException;
@@ -47,17 +48,23 @@ public class TestBase {
 
     MantisConnectPortType mc = app.soap().getMantisConnect();
     String status = mc.mc_issue_get("administrator", "root", BigInteger.valueOf(issueId)).getStatus().getName();
-    if(status == "open") {
-      return true;
+    if(status.equals("closed") || status.equals("resolved")) {
+      return false;
   }
-  return false;
+  return true;
   }
 
-  //@BeforeTest
   public void skipIfNotFixed(int issueId) throws RemoteException, MalformedURLException, ServiceException {
     if (isIssueOpen(issueId)) {
       throw new SkipException("Ignored because of issue " + issueId);
     }
   }
+  @Test
+  public void testGetIssueStatus() throws IOException, ServiceException {
+    skipIfNotFixed(3);
+    System.out.println("This issue is already fixed");
+
+  }
+
 
 }
