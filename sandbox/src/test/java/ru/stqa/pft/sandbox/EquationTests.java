@@ -23,6 +23,6 @@ public class EquationTests {
 
   public void test2(){
     Equation e = new Equation(1,5,6);
-    Assert.assertEquals(e.rootNumber(), 2);
+    Assert.assertEquals(e.rootNumber(), 0);
   }
 }
