@@ -12,9 +12,11 @@ dependencies {
         compile 'org.apache.httpcomponents:fluent-hc:4.5.3'
         compile 'com.jayway.restassured:rest-assured:2.9.0'
 
-
-
 }
 
+test {
+    useTestNG ()
+        
+    }
 
 
