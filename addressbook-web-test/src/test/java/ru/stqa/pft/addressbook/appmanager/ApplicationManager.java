@@ -39,7 +39,7 @@ public class ApplicationManager {
 
 
   public void init() throws IOException {
-    String target = System.getProperty("target", "remote");
+    String target = System.getProperty("target", "local");
     properties.load(new FileReader(String.format("src/test/resources/%s.properties", target)));
 
     dbHelper = new DbHelper();
@@ -55,7 +55,7 @@ public class ApplicationManager {
     } else {
       DesiredCapabilities capabilities = new DesiredCapabilities();
       capabilities.setBrowserName(browser);
-      capabilities.setPlatform(Platform.fromString(System.getProperty("platform", "WIN10")));
+      capabilities.setPlatform(Platform.fromString(System.getProperty("platform", "win10")));
       wd = new RemoteWebDriver(new URL(properties.getProperty("selenium.server")), capabilities);
     }
 
