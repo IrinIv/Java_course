@@ -1,6 +1,8 @@
 package ru.stqa.pft.addressbook.appmanager;
 
+import org.openqa.selenium.OutputType;
 import org.openqa.selenium.Platform;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -38,7 +40,7 @@ public class ApplicationManager {
 
 
   public void init() throws IOException {
-    String target = System.getProperty("target", "remote");
+    String target = System.getProperty("target", "local");
     properties.load(new FileReader(String.format("src/test/resources/%s.properties", target)));
 
     dbHelper = new DbHelper();
@@ -85,6 +87,11 @@ public class ApplicationManager {
 
   public DbHelper db() {
     return dbHelper;
+  }
+
+  public byte[] takeScreenshot() {
+
+    return ((TakesScreenshot) wd).getScreenshotAs(OutputType.BYTES);
   }
 
 }
