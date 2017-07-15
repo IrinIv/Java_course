@@ -9,6 +9,8 @@
             <class name = "ru.stqa.pft.addressbook.tests.ContactModificationTests" />
             <class name = "ru.stqa.pft.addressbook.tests.ContactPhoneTests" />
             <class name = "ru.stqa.pft.addressbook.tests.ContactDeletionTests" />
+            <class name = "ru.stqa.pft.addressbook.tests.ContactAddToGroupTests"  />
+            <class name = "ru.stqa.pft.addressbook.tests.ContactDeleteFromGroupTests" />
         </classes>
     </test>
 </suite>
