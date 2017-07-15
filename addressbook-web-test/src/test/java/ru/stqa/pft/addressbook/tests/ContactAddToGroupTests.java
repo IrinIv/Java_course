@@ -8,14 +8,9 @@ import ru.stqa.pft.addressbook.model.Contacts;
 import ru.stqa.pft.addressbook.model.GroupData;
 import ru.stqa.pft.addressbook.model.Groups;
 
-import java.util.Comparator;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
-
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
 
 /**
  * Created by IrinaIv on 6/23/2017.
@@ -44,42 +39,39 @@ public class ContactAddToGroupTests extends TestBase {
   @Test
   public void testContactAddToGroup() {
     app.contact().homePage();
-    Contacts before = app.db().contacts();
-    Set<GroupData> allGroups = app.db().groups();
-    ContactData contact = before.iterator().next();
+    Contacts allContacts = app.db().contacts();
+    Groups allGroups = app.db().groups();
+    Set<GroupData> contactGroups;
+    Iterator <ContactData> contact = allContacts.iterator();
     GroupData group = allGroups.iterator().next();
-    if (group.getContacts().contains(contact)) {
+    for (int i = 0; i < allContacts.size(); i++) {
+      ContactData selectedContact = contact.next();
+
+    if (group.getContacts().contains(selectedContact)) {
       app.contact().selectGroupContactsPage(group);
-      app.contact().selectContactById(contact.getId());
+      app.contact().selectContactById(selectedContact.getId());
       app.contact().removeFromGroup();
       app.contact().homePage();
       app.contact().goToHomePageWithAllGroups();
-      Groups groups = selectedContacts(contact);
+      Groups groups = updatedContacts(selectedContact);
       Assert.assertFalse(groups.contains(group));
     }
-    if (group.getContacts().size() == allGroups.size()) {
-      app.goTo().groupPage();
-      app.group().create(new GroupData().withName("test3"));
-      app.contact().homePage();
-      app.contact().selectContactById(contact.getId());
-      app.contact().addSelectedContactToGroup(group);
 
-    }
-    app.contact().selectContactById(contact.getId());
+    app.contact().selectContactById(selectedContact.getId());
     app.contact().addSelectedContactToGroup(group);
 
-    Groups groups = selectedContacts(contact);
+    Groups groups = updatedContacts(selectedContact);
     Assert.assertTrue(groups.contains(group));
-  }
+  }}
 
 
-  private Groups selectedContacts(ContactData contact) {
+  private Groups updatedContacts(ContactData contact) {
 
     Contacts newContacts = app.db().contacts();
-    Set<ContactData> selectedContacts = newContacts.stream()
+    Set<ContactData> updatedContacts = newContacts.stream()
             .filter(c -> c.getId() == contact.getId())
             .collect(Collectors.toSet());
-    return selectedContacts.iterator().next().getGroups();
+    return updatedContacts.iterator().next().getGroups();
 
   }
 }
