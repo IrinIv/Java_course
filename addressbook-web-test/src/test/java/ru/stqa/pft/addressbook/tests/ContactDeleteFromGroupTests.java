@@ -1,6 +1,6 @@
 package ru.stqa.pft.addressbook.tests;
 
-import org.openqa.selenium.support.ui.Select;
+import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ContactData;
@@ -10,9 +10,7 @@ import ru.stqa.pft.addressbook.model.Groups;
 
 import java.util.Iterator;
 import java.util.Set;
-
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
+import java.util.stream.Collectors;
 
 /**
  * Created by IrinaIv on 6/23/2017.
@@ -40,34 +38,50 @@ public class ContactDeleteFromGroupTests extends TestBase {
   @Test
   public void testContactDeleteFromGroup() {
     app.contact().homePage();
-    Set<GroupData> contactGroups;
-    Contacts before = app.db().contacts();
-    Iterator<ContactData> idG = before.iterator();
-    for (int i = 0; i < app.db().contacts().size(); i++) {
-      ContactData selectedContact = idG.next();
-      Set<GroupData> allGroups = app.db().groups();
-      contactGroups = selectedContact.getGroups();
-//      if (contactGroups.size() == 0) {
-//        app.contact().goToHomePageWithAllGroups(selectedContact, allGroups);
-//        app.contact().addSelectedContactToGroup(selectedContact, allGroups);
-//        app.contact().deleteContactFromGroup(selectedContact, allGroups);}
-//      if (contactGroups.size() > 0) {
-//        app.contact().deleteContactFromGroup(selectedContact, allGroups);
-//      }
-//      if (contactGroups.size() == allGroups.size() ) {
-//        app.goTo().groupPage();
-//        app.group().create(new GroupData().withName("test4"));
-//        app.contact().homePage();
-//        app.contact().goToHomePageWithAllGroups(selectedContact, allGroups);
-//        app.contact().addSelectedContactToGroup(selectedContact, allGroups);
-//        app.contact().deleteContactFromGroup(selectedContact, allGroups);
-//      }
-      Contacts after = app.db().contacts();
-      assertThat(after, equalTo(before.withOut(selectedContact).withAdded(selectedContact)));
+    Contacts allContacts = app.db().contacts();
+    Groups allGroups = app.db().groups();
+    Iterator<ContactData> contact = allContacts.iterator();
+    GroupData group = allGroups.iterator().next();
+    for (int i = 0; i < allContacts.size(); i++) {
+      ContactData selectedContact = contact.next();
 
+      if (!group.getContacts().contains(selectedContact)) {
+        app.contact().selectContactById(selectedContact.getId());
+        app.contact().addSelectedContactToGroup(group);
+        app.contact().homePage();
+        app.contact().selectGroupContactsPage(group);
+        app.contact().selectContactById(selectedContact.getId());
+        app.contact().removeFromGroup();
+        app.contact().homePage();
+        app.contact().goToHomePageWithAllGroups();
       }
+      if (group.getContacts().contains(selectedContact)) {
+        app.contact().selectGroupContactsPage(group);
+        app.contact().selectContactById(selectedContact.getId());
+        app.contact().removeFromGroup();
+        app.contact().homePage();
+        app.contact().goToHomePageWithAllGroups();
+        Groups groups = updatedContacts(selectedContact);
+        Assert.assertFalse(groups.contains(group));
+      }
+      Groups groups = updatedContacts(selectedContact);
+      Assert.assertFalse(groups.contains(group));
     }
   }
+
+  private Groups updatedContacts(ContactData contact) {
+
+    Contacts newContacts = app.db().contacts();
+    Set<ContactData> updatedContacts = newContacts.stream()
+            .filter(c -> c.getId() == contact.getId())
+            .collect(Collectors.toSet());
+    return updatedContacts.iterator().next().getGroups();
+
+  }
+
+}
+
+
 
 
 
