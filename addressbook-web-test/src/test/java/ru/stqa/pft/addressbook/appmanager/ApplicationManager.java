@@ -40,7 +40,7 @@ public class ApplicationManager {
 
 
   public void init() throws IOException {
-    String target = System.getProperty("target", "local");
+    String target = System.getProperty("target", "remote");
     properties.load(new FileReader(String.format("src/test/resources/%s.properties", target)));
 
     dbHelper = new DbHelper();
