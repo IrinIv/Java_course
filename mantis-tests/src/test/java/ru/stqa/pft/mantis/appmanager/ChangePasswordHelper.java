@@ -19,7 +19,8 @@ public class ChangePasswordHelper extends BaseHelper {
   }
 
   public void goToManageUsers() {
-    click(By.xpath("//a[contains(.,'Manage Project')]"));
+    click(By.xpath("//a[contains(.,'Manage')]"));
+    click(By.xpath("//a[contains(.,'Manage Users')]"));
   }
 
   public void selectUserById(int id) {

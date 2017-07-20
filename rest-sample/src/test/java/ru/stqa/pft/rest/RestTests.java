@@ -42,13 +42,6 @@ public class RestTests extends TestBase {
       System.out.println(issue.toString());
     }
   }
-
-  @Test
-  public void testGetIssueStatus() throws IOException {
-    String status = app.rest().getIssueStatus(1);
-
-    System.out.println(status);
-
-  }
+  
 }
 

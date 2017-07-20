@@ -44,27 +44,27 @@ public class TestBase {
     return app;
   }
 
-  boolean isIssueOpen(int issueId) throws RemoteException, MalformedURLException, ServiceException {
-
-    MantisConnectPortType mc = app.soap().getMantisConnect();
-    String status = mc.mc_issue_get("administrator", "root", BigInteger.valueOf(issueId)).getStatus().getName();
-    if(status.equals("closed") || status.equals("resolved")) {
-      return false;
-  }
-  return true;
-  }
-
-  public void skipIfNotFixed(int issueId) throws RemoteException, MalformedURLException, ServiceException {
-    if (isIssueOpen(issueId)) {
-      throw new SkipException("Ignored because of issue " + issueId);
-    }
-  }
-  @Test
-  public void testGetIssueStatus() throws IOException, ServiceException {
-    skipIfNotFixed(3);
-    System.out.println("This issue is already fixed");
-
-  }
+//  boolean isIssueOpen(int issueId) throws RemoteException, MalformedURLException, ServiceException {
+//
+//    MantisConnectPortType mc = app.soap().getMantisConnect();
+//    String status = mc.mc_issue_get("administrator", "root", BigInteger.valueOf(issueId)).getStatus().getName();
+//    if(status.equals("closed") || status.equals("resolved")) {
+//      return false;
+//  }
+//  return true;
+//  }
+//
+//  public void skipIfNotFixed(int issueId) throws RemoteException, MalformedURLException, ServiceException {
+//    if (isIssueOpen(issueId)) {
+//      throw new SkipException("Ignored because of issue " + issueId);
+//    }
+//  }
+//  @Test
+//  public void testGetIssueStatus() throws IOException, ServiceException {
+//    skipIfNotFixed(3);
+//    System.out.println("This issue is already fixed");
+//
+//  }
 
 
 }
