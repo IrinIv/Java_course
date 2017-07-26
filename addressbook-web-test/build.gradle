@@ -66,8 +66,5 @@ task testContacts (type: Test) {
     }
 }
 
-testContacts.doFirst {
-    jvmArgs "-javaagent:${configurations.agent.singleFile}"
-}
 
 
